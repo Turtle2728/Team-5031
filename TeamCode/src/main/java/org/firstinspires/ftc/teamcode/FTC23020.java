@@ -43,7 +43,7 @@ public class FTC23020 extends LinearOpMode {
             double X = gamepad1.left_stick_x;
             double R = gamepad1.right_stick_x;
             double slow = 0.8 * (0.6 * gamepad1.right_trigger);
-            double A = -gamepad1.right_stick_y;
+            double A = -gamepad2.right_stick_y;
 
             if (gamepad1.options) {
                 imu.resetYaw();
@@ -60,7 +60,7 @@ public class FTC23020 extends LinearOpMode {
             double leftRearPower = ((rotY - rotX - R) / denominator) * slow;
             double rightFronttPower = ((rotY - rotX + R) / denominator) * slow;
             double rightRearPower  = ((rotY + rotX + R) / denominator) * slow;
-            double armPower = Y;
+            double armPower = A;
 
             leftFront.setPower(leftFrontPower);
             leftRear.setPower(leftRearPower);
