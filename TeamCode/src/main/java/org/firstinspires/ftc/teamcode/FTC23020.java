@@ -14,6 +14,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 @Disabled
 //@TeleOp
+@TeleOp (name = FTC23020, group = FTC23020)
 
 
 public class FTC23020 extends LinearOpMode {
