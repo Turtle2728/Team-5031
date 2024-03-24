@@ -188,7 +188,6 @@ public class FTC23020 extends LinearOpMode {
             }
             swAstatus = swAcurrent;
             telemetry.addData("encoder", ARM.getCurrentPosition());
-            telemetry.addData('swAcurrent', swAcurrent);
             telemetry.addData("Astatus", swAstatus);
             telemetry.addData("wPosition", wPOSITION);
             telemetry.update();
