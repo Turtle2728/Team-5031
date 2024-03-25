@@ -42,7 +42,7 @@ public class FTC23020 extends LinearOpMode {
         Gamepad previousGamepad2 = new Gamepad();
 
         imu.initialize(parameters);
-        leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
+        rightRear.setDirection(DcMotorSimple.Direction.REVERSE);
         leftRear.setDirection(DcMotorSimple.Direction.REVERSE);
         ARM.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         ARM.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
