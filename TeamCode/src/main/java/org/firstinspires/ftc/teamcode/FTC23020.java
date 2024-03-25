@@ -98,10 +98,10 @@ public class FTC23020 extends LinearOpMode {
             rotX = rotX * 1.1; // Counteract imperfect strafing
 
             double denominator = Math.max(Math.abs(rotY) + Math.abs(rotX) + Math.abs(R), 1);
-            double leftFrontPower = ((rotY + rotX - R) / denominator) * slow;
-            double leftRearPower = ((rotY - rotX - R) / denominator) * slow;
-            double rightFrontPower = ((rotY - rotX + R) / denominator) * slow;
-            double rightRearPower  = ((rotY + rotX + R) / denominator) * slow;
+            double leftFrontPower = ((rotY + rotX + R) / denominator) * slow;
+            double leftRearPower = ((rotY - rotX + R) / denominator) * slow;
+            double rightFrontPower = ((rotY - rotX - R) / denominator) * slow;
+            double rightRearPower  = ((rotY + rotX - R) / denominator) * slow;
             double armPower = A;
 
             leftFront.setPower(leftFrontPower);
