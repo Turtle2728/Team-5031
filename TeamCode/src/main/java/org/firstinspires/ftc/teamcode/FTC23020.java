@@ -11,6 +11,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
+
 @TeleOp
 
 
@@ -41,14 +42,12 @@ public class FTC23020 extends LinearOpMode {
         Gamepad previousGamepad2 = new Gamepad();
 
         imu.initialize(parameters);
-        waitForStart();
+
 
         rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
         rightRear.setDirection(DcMotorSimple.Direction.REVERSE);
         ARM.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         ARM.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        if (isStopRequested()) return;
 
         int sPOSION = 0;
         double s2POSION = 0.1;
@@ -66,6 +65,10 @@ public class FTC23020 extends LinearOpMode {
         int g2POSITION = 0;
         double wPOSITION = 0;
 
+        waitForStart();
+
+        if (isStopRequested()) return;
+
         while (opModeIsActive()) {
 
             telemetry.update();
@@ -82,12 +85,13 @@ public class FTC23020 extends LinearOpMode {
             double Y = -gamepad1.left_stick_y; // Remember, Y stick value is reversed
             double X = gamepad1.left_stick_x;
             double R = gamepad1.right_stick_x;
-            double slow = 0.8 * (0.6 * gamepad1.right_trigger);
+            double slow = 0.9 - (0.7 * gamepad1.right_trigger);
             double A = -gamepad2.right_stick_y;
 
             if (gamepad1.options) {
                 imu.resetYaw();
             }
+
             double botHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
 
             double rotX = X * Math.cos(-botHeading) - Y * Math.sin(-botHeading);
@@ -98,13 +102,13 @@ public class FTC23020 extends LinearOpMode {
             double denominator = Math.max(Math.abs(rotY) + Math.abs(rotX) + Math.abs(R), 1);
             double leftFrontPower = ((rotY + rotX - R) / denominator) * slow;
             double leftRearPower = ((rotY - rotX - R) / denominator) * slow;
-            double rightFronttPower = ((rotY - rotX + R) / denominator) * slow;
+            double rightFrontPower = ((rotY - rotX + R) / denominator) * slow;
             double rightRearPower  = ((rotY + rotX + R) / denominator) * slow;
             double armPower = A;
 
             leftFront.setPower(leftFrontPower);
             leftRear.setPower(leftRearPower);
-            rightFront.setPower(rightFronttPower);
+            rightFront.setPower(rightFrontPower);
             rightRear.setPower(rightRearPower);
             ARM.setPower(armPower);
 
@@ -136,6 +140,7 @@ public class FTC23020 extends LinearOpMode {
                     currentPosition = ARM.getCurrentPosition();
                 }
             }
+
             while (gamepad2.a) {
                 targetPosition = -30;
                 ARM.setTargetPosition(targetPosition);
@@ -143,6 +148,7 @@ public class FTC23020 extends LinearOpMode {
                 ARM.setPower(0.5);
                 currentPosition = ARM.getCurrentPosition();
             }
+
             while (gamepad2.y) {
                 targetPosition = -1000;
                 ARM.setTargetPosition(targetPosition);
@@ -188,6 +194,8 @@ public class FTC23020 extends LinearOpMode {
             telemetry.addData("encoder", ARM.getCurrentPosition());
             telemetry.addData("Astatus", swAstatus);
             telemetry.addData("wPosition", wPOSITION);
+            telemetry.addData("X", gamepad1.left_stick_x);
+            telemetry.addData("leftFrontPower", leftFrontPower);
             telemetry.update();
         }
     }
