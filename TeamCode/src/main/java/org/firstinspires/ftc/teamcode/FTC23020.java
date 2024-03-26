@@ -69,8 +69,8 @@ public class FTC23020 extends LinearOpMode {
         while (opModeIsActive()) {
 
             telemetry.update();
-            swAcurrent = gamepad1.x;
-            swBcurrent = gamepad1.b;
+            swAcurrent = gamepad1.b;
+            swBcurrent = gamepad1.x;
             swDowncurrent = gamepad2.dpad_left;
             swUpcurrent = gamepad2.dpad_right;
 
