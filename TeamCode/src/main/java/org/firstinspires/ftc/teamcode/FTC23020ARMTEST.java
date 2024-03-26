@@ -189,7 +189,8 @@ public class FTC23020ARMTEST extends LinearOpMode {
                 gripper2.setPosition(g2POSITION);
             }
             swAstatus = swAcurrent;
-            telemetry.addData("encoder", ARM.getCurrentPosition());
+
+            telemetry.addData("aCurrent", aCurrentPosition);
             telemetry.addData("Astatus", swAstatus);
             telemetry.addData("wPosition", wPOSITION);
             telemetry.addData("X", gamepad1.left_stick_x);
