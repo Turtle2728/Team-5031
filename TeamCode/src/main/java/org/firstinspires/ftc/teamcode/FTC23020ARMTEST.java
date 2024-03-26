@@ -15,7 +15,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 @TeleOp
 
 
-public class FTC23020 extends LinearOpMode {
+public class FTC23020ARMTEST extends LinearOpMode {
     @Override
 
     public void runOpMode () throws InterruptedException {
@@ -45,10 +45,14 @@ public class FTC23020 extends LinearOpMode {
 
         leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
         leftRear.setDirection(DcMotorSimple.Direction.REVERSE);
+
+
+        waitForStart();
+
         ARM.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         ARM.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        waitForStart();
+        if (isStopRequested()) return;
 
         boolean swAstatus = false;
         boolean swAcurrent;
@@ -58,13 +62,15 @@ public class FTC23020 extends LinearOpMode {
         boolean swUpcurrent;
         boolean swDownstatus = false;
         boolean swDowncurrent;
-        int targetPosition = 0;
-        int currentPosition = 0;
+        int aTargetPosition = 0;
+        int aCurrentPosition = 0;
         int gPOSITION = 0;
         int g2POSITION = 0;
         double wPOSITION = 0;
 
-        if (isStopRequested()) return;
+        int AngleErrorValue = 0;
+
+
 
         while (opModeIsActive()) {
 
@@ -115,44 +121,39 @@ public class FTC23020 extends LinearOpMode {
             if (gamepad1.dpad_right) {
                 shooting.setPosition(0.37);
             }
-            while (gamepad2.b) {
-                targetPosition = currentPosition - 100;
-                ARM.setTargetPosition(targetPosition);
-                ARM.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                ARM.setPower(0.3);
-                currentPosition = ARM.getCurrentPosition();
-            }
-            while (gamepad2.x) {
-                if (targetPosition < -10) {
-                    targetPosition = currentPosition + 100;
-                    ARM.setTargetPosition(targetPosition);
+
+            if (currentGamepad2.right_stick_button && !previousGamepad2.right_stick_button) {
+                if (aCurrentPosition > 3400 - AngleErrorValue) {
+                    aTargetPosition = 3600 - AngleErrorValue;
+                    ARM.setTargetPosition(aTargetPosition);
                     ARM.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                    ARM.setPower(0.3);
-                    currentPosition = ARM.getCurrentPosition();
+                    ARM.setPower(0.8);
+                    aCurrentPosition = aTargetPosition;
                 } else {
-                    targetPosition = -10;
-                    ARM.setTargetPosition(targetPosition);
+                    aTargetPosition = aCurrentPosition + 200;
+                    ARM.setTargetPosition(aTargetPosition);
                     ARM.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                    ARM.setPower(0.3);
-                    currentPosition = ARM.getCurrentPosition();
+                    ARM.setPower(0.8);
+                    aCurrentPosition = aTargetPosition;
                 }
             }
 
-            while (gamepad2.a) {
-                targetPosition = -30;
-                ARM.setTargetPosition(targetPosition);
-                ARM.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                ARM.setPower(0.5);
-                currentPosition = ARM.getCurrentPosition();
+            if (currentGamepad2.left_stick_button && !previousGamepad2.left_stick_button) {
+                if (aCurrentPosition < 200 - AngleErrorValue) {
+                    aTargetPosition = 0 - AngleErrorValue;
+                    ARM.setTargetPosition(aTargetPosition);
+                    ARM.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                    ARM.setPower(0.8);
+                    aCurrentPosition = aTargetPosition;
+                } else {
+                    aTargetPosition = aCurrentPosition - 200;
+                    ARM.setTargetPosition(aTargetPosition);
+                    ARM.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                    ARM.setPower(0.8);
+                    aCurrentPosition = aTargetPosition;
+                }
             }
 
-            while (gamepad2.y) {
-                targetPosition = -1000;
-                ARM.setTargetPosition(targetPosition);
-                ARM.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                ARM.setPower(0.5);
-                currentPosition = ARM.getCurrentPosition();
-            }
             while (gamepad2.dpad_up) {
                 wPOSITION = 0.65;
                 wrist.setPosition(wPOSITION);
