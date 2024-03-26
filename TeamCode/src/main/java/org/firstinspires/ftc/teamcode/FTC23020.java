@@ -48,8 +48,6 @@ public class FTC23020 extends LinearOpMode {
         ARM.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         ARM.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        int sPOSION = 0;
-        double s2POSION = 0.1;
         boolean swAstatus = false;
         boolean swAcurrent;
         boolean swBstatus = false;
@@ -96,7 +94,7 @@ public class FTC23020 extends LinearOpMode {
             double rotX = X * Math.cos(-botHeading) - Y * Math.sin(-botHeading);
             double rotY = X * Math.sin(-botHeading) + Y * Math.cos(-botHeading);
 
-            rotX = rotX * 1.1; // Counteract imperfect strafing
+            rotX = rotX * 1.1;
 
             double denominator = Math.max(Math.abs(rotY) + Math.abs(rotX) + Math.abs(R), 1);
             double leftFrontPower = ((rotY + rotX - R) / denominator) * slow;
