@@ -43,7 +43,7 @@ public class FTC23020 extends LinearOpMode {
 
         imu.initialize(parameters);
 
-        rightRear.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
         leftRear.setDirection(DcMotorSimple.Direction.REVERSE);
         ARM.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         ARM.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -97,10 +97,10 @@ public class FTC23020 extends LinearOpMode {
             rotX = rotX * 1.1;
 
             double denominator = Math.max(Math.abs(rotY) + Math.abs(rotX) + Math.abs(R), 1);
-            double leftFrontPower = ((rotY + rotX - R) / denominator) * slow;
-            double leftRearPower = ((rotY - rotX - R) / denominator) * slow;
-            double rightFrontPower = ((rotY - rotX + R) / denominator) * slow;
-            double rightRearPower  = ((rotY + rotX + R) / denominator) * slow;
+            double leftFrontPower = ((rotY + rotX + R) / denominator) * slow;
+            double leftRearPower = ((rotY - rotX + R) / denominator) * slow;
+            double rightFrontPower = ((rotY - rotX - R) / denominator) * slow;
+            double rightRearPower  = ((rotY + rotX - R) / denominator) * slow;
             double armPower = A;
 
             leftFront.setPower(leftFrontPower);
