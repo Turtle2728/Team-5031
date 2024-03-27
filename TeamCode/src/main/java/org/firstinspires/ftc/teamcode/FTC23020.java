@@ -50,18 +50,13 @@ public class FTC23020 extends LinearOpMode {
 
         waitForStart();
 
-        boolean swAstatus = false;
-        boolean swAcurrent;
-        boolean swBstatus = false;
-        boolean swBcurrent;
         boolean swUpstatus = false;
         boolean swUpcurrent;
         boolean swDownstatus = false;
         boolean swDowncurrent;
         int targetPosition = 0;
         int currentPosition = 0;
-        int gPOSITION = 0;
-        int g2POSITION = 0;
+
         double wPOSITION = 0;
 
         if (isStopRequested()) return;
@@ -69,8 +64,7 @@ public class FTC23020 extends LinearOpMode {
         while (opModeIsActive()) {
 
             telemetry.update();
-            swAcurrent = gamepad1.b;
-            swBcurrent = gamepad1.x;
+
             swDowncurrent = gamepad2.dpad_left;
             swUpcurrent = gamepad2.dpad_right;
 
@@ -82,8 +76,7 @@ public class FTC23020 extends LinearOpMode {
             double Y = -gamepad1.left_stick_y; // Remember, Y stick value is reversed
             double X = gamepad1.left_stick_x;
             double R = gamepad1.right_stick_x;
-            double slow = 0.9 - (0.7 * gamepad1.right_trigger);
-            double A = -gamepad2.right_stick_y;
+            double slow = 1 - (0.7 * gamepad1.right_trigger);
 
             if (gamepad1.options) {
                 imu.resetYaw();
@@ -101,13 +94,11 @@ public class FTC23020 extends LinearOpMode {
             double leftRearPower = ((rotY - rotX + R) / denominator) * slow;
             double rightFrontPower = ((rotY - rotX - R) / denominator) * slow;
             double rightRearPower  = ((rotY + rotX - R) / denominator) * slow;
-            double armPower = A;
 
             leftFront.setPower(leftFrontPower);
             leftRear.setPower(leftRearPower);
             rightFront.setPower(rightFrontPower);
             rightRear.setPower(rightRearPower);
-            ARM.setPower(armPower);
 
             if (gamepad1.dpad_left) {
                 shooting.setPosition(0);
@@ -115,11 +106,12 @@ public class FTC23020 extends LinearOpMode {
             if (gamepad1.dpad_right) {
                 shooting.setPosition(0.37);
             }
+
             while (gamepad2.b) {
                 targetPosition = currentPosition - 100;
                 ARM.setTargetPosition(targetPosition);
                 ARM.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                ARM.setPower(0.3);
+                ARM.setPower(0.7);
                 currentPosition = ARM.getCurrentPosition();
             }
             while (gamepad2.x) {
@@ -139,20 +131,21 @@ public class FTC23020 extends LinearOpMode {
             }
 
             while (gamepad2.a) {
-                targetPosition = -30;
+                targetPosition = 0;
                 ARM.setTargetPosition(targetPosition);
                 ARM.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 ARM.setPower(0.5);
                 currentPosition = ARM.getCurrentPosition();
             }
 
-            while (gamepad2.y) {
-                targetPosition = -1000;
+            if (gamepad2.y) {
+                targetPosition = -1100;
                 ARM.setTargetPosition(targetPosition);
                 ARM.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                ARM.setPower(0.5);
+                ARM.setPower(0.7);
                 currentPosition = ARM.getCurrentPosition();
             }
+
             while (gamepad2.dpad_up) {
                 wPOSITION = 0.65;
                 wrist.setPosition(wPOSITION);
@@ -171,29 +164,25 @@ public class FTC23020 extends LinearOpMode {
                 wrist.setPosition(wPOSITION);
             }
             swDownstatus = swDowncurrent;
-            if (swAcurrent == true && swAcurrent != swAstatus) {
-                if (gPOSITION == 0) {
-                    gPOSITION = 1;
-                } else {
-                    gPOSITION = 0;
-                }
-                gripper1.setPosition(gPOSITION);
+
+            if (gamepad1.left_bumper) {
+               gripper2.setPosition(0.4);
+            } else {
+                gripper2.setPosition(0.1);
             }
-            if (swBcurrent == true && swBcurrent != swBstatus) {
-                if (g2POSITION == 0) {
-                    g2POSITION = 1;
-                } else {
-                    g2POSITION = 0;
-                }
-                gripper2.setPosition(g2POSITION);
+
+            if (gamepad1.right_bumper) {
+                gripper1.setPosition(0.6);
+            } else {
+                gripper1.setPosition(0.9);
             }
-            swAstatus = swAcurrent;
+
+            }
             telemetry.addData("encoder", ARM.getCurrentPosition());
-            telemetry.addData("Astatus", swAstatus);
             telemetry.addData("wPosition", wPOSITION);
             telemetry.addData("X", gamepad1.left_stick_x);
-            telemetry.addData("leftFrontPower", leftFrontPower);
+            telemetry.addData("gripper1", gripper1);
+            telemetry.addData("gripper2", gripper2);
             telemetry.update();
         }
     }
-}
