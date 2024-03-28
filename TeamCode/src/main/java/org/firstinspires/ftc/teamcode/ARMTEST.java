@@ -148,11 +148,11 @@ public class ARMTEST extends LinearOpMode {
                 currentPosition = ARM.getCurrentPosition();
             }
             while (gamepad2.dpad_up) {
-                wPOSITION = 1;
+                wPOSITION = 0.65;
                 wrist.setPosition(wPOSITION);
             }
             while (gamepad2.dpad_down) {
-                wPOSITION = 0.6;
+                wPOSITION = 0.55;
                 wrist.setPosition(wPOSITION);
             }
             if (swUpcurrent == true && swUpcurrent != swUpstatus) {

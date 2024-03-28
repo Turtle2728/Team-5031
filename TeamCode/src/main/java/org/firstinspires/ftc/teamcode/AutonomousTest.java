@@ -16,8 +16,8 @@ import org.firstinspires.ftc.vision.tfod.TfodProcessor;
 
 import java.util.List;
 
-@Autonomous(name = "RedClose_LP", group = "RedClose")
-public class FTC23020RED extends LinearOpMode {
+@Autonomous(name = "RedCloseTest", group = "RedClose")
+public class AutonomousTest extends LinearOpMode {
 
 
     int biconPosition = 1;
@@ -58,8 +58,8 @@ public class FTC23020RED extends LinearOpMode {
 
         //right traj
 
-        Trajectory R1 = drive.trajectoryBuilder(new Pose2d(11.5, 0))  //to backdrop
-                .lineToLinearHeading(new Pose2d(44.5, 0, Math.toRadians(0)))
+        Trajectory R1 = drive.trajectoryBuilder(new Pose2d(0, 0))  //to backdrop
+                .lineToLinearHeading(new Pose2d(0, 0, Math.toRadians(0)))
 
                 .addTemporalMarker(0.1, () -> {
                     // Run your action in here!
