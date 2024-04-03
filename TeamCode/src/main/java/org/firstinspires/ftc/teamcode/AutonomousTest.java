@@ -168,6 +168,14 @@ public class AutonomousTest extends LinearOpMode {
             customSleep(300);
 
             armadjust(1,-500,0.65);
+            gripper(leftopen,rightclose);
+
+            drive.followTrajectory(backleft);
+
+            customSleep(300);
+
+            gripper(leftopen,rightopen);
+            customSleep(300);
 
 
         }
