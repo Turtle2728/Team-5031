@@ -76,7 +76,7 @@ public class FTC23020 extends LinearOpMode {
             double Y = -gamepad1.left_stick_y; // Remember, Y stick value is reversed
             double X = gamepad1.left_stick_x;
             double R = gamepad1.right_stick_x;
-            double slow = 1 - (0.7 * gamepad1.right_trigger);
+            double slow = 1.5 - (0.7 * gamepad1.right_trigger);
 
             if (gamepad1.options) {
                 imu.resetYaw();
@@ -111,7 +111,7 @@ public class FTC23020 extends LinearOpMode {
                 targetPosition = currentPosition - 100;
                 ARM.setTargetPosition(targetPosition);
                 ARM.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                ARM.setPower(0.7);
+                ARM.setPower(0.6);
                 currentPosition = ARM.getCurrentPosition();
             }
             while (gamepad2.x) {
@@ -131,18 +131,18 @@ public class FTC23020 extends LinearOpMode {
             }
 
             while (gamepad2.a) {
-                targetPosition = 0;
+                targetPosition = -20;
                 ARM.setTargetPosition(targetPosition);
                 ARM.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                ARM.setPower(0.5);
+                ARM.setPower(1);
                 currentPosition = ARM.getCurrentPosition();
             }
 
             if (gamepad2.y) {
-                targetPosition = -1100;
+                targetPosition = -2000;
                 ARM.setTargetPosition(targetPosition);
                 ARM.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                ARM.setPower(0.7);
+                ARM.setPower(1);
                 currentPosition = ARM.getCurrentPosition();
             }
 
@@ -151,7 +151,7 @@ public class FTC23020 extends LinearOpMode {
                 wrist.setPosition(wPOSITION);
             }
             while (gamepad2.dpad_down) {
-                wPOSITION = 0.6;
+                wPOSITION = 0.55;
                 wrist.setPosition(wPOSITION);
             }
             if (swUpcurrent == true && swUpcurrent != swUpstatus) {

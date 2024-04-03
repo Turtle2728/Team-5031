@@ -5,6 +5,8 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.BuiltinCameraDirection;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -25,21 +27,39 @@ public class AutonomousTest extends LinearOpMode {
 
     private static final String TFOD_MODEL_ASSET = "5031Red.tflite";
 
-    private static final String[] LABELS = {
-            "RED",
-    };
+    private static final String[] LABELS = {"RED"};
 
     private TfodProcessor tfod;
 
     private VisionPortal visionPortal;
 
-    double rightopen = 0.5;
-    double leftopen = 0.5;
+    double rightopen = 0.6;
+    double leftopen = 0.4;
 
-    double rightclose = 0.85;
-    double leftclose = 0.15;
+    double rightclose = 0.9;
+    double leftclose = 0.1;
 
-    public void customSleep(int milliseconds) {
+
+    DcMotor armMotor;
+    Servo wrist;
+    Servo right_claw;
+    Servo left_claw;
+
+    public void armadjust(double armPower, int armTarget, double wristTarget) {
+
+        armMotor.setTargetPosition(armTarget);
+        wrist.setPosition(wristTarget);
+        armMotor.setPower(armPower);
+        armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+    }
+
+    public void gripper(double Left_Target, double Right_target) {
+        left_claw.setPosition(Left_Target);
+        right_claw.setPosition(Right_target);
+    }
+
+   public void customSleep(int milliseconds) {
         try {
             Thread.sleep(milliseconds);
         } catch (InterruptedException e) {
@@ -50,157 +70,63 @@ public class AutonomousTest extends LinearOpMode {
     @Override
     public void runOpMode() {
 
+        armMotor = hardwareMap.dcMotor.get("ARM");
+
+        left_claw = hardwareMap.servo.get("gripper2");
+        right_claw = hardwareMap.servo.get("gripper1");
+        wrist = hardwareMap.servo.get("wrist");
+
+        armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
-        drive.setPoseEstimate(new Pose2d(0, 0, 0));
+
+
+        drive.setPoseEstimate(new Pose2d(12, -60, Math.toRadians(90)));
+
+
 
 
 
         //right traj
 
-        Trajectory R1 = drive.trajectoryBuilder(new Pose2d(0, 0))  //to backdrop
-                .lineToLinearHeading(new Pose2d(0, 0, Math.toRadians(0)))
-
-                .addTemporalMarker(0.1, () -> {
-                    // Run your action in here!
-
-                })
+        Trajectory M1 = drive.trajectoryBuilder(new Pose2d(12, -60, Math.toRadians(90)))//M.b.p
+                .lineToLinearHeading(new Pose2d(12, -31, Math.toRadians(90)))
 
                 .build();
 
-        Trajectory rotateR = drive.trajectoryBuilder(R1.end())
-                .lineToLinearHeading(new Pose2d(43.5, -30, Math.toRadians(170)))
-
-                .addTemporalMarker(0, () -> {
-                })
-
-                .addTemporalMarker(1, () -> {
-                })
+        Trajectory backCenter = drive.trajectoryBuilder(new Pose2d(12, -31, Math.toRadians(90)))//M.b.d
+                .lineToLinearHeading(new Pose2d(52, -31, Math.toRadians(0)))
 
                 .build();
 
-        Trajectory R2 = drive.trajectoryBuilder(rotateR.end())  //to park-1
-
-                .addTemporalMarker(0, () -> {
-                })
-
-                .lineToLinearHeading(new Pose2d(43.5, -13, Math.toRadians(270)))
-
-                .addTemporalMarker(0.2, () -> {
-                    // Run your action in here!
-
-                })
+        Trajectory M2 = drive.trajectoryBuilder(new Pose2d(52, -31, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(20, -33, Math.toRadians(180)))
 
                 .build();
 
-        Trajectory R3 = drive.trajectoryBuilder(R2.end())  //to park-2
-
-                .strafeLeft(15)
-
-                .build();
-
-
-
-
-        //mid traj
-
-        Trajectory M1 = drive.trajectoryBuilder(new Pose2d(11.5, -65))
-                .lineToLinearHeading(new Pose2d(11.5, -41, Math.toRadians(90)))
-
-                .addTemporalMarker(1, () -> {
-                    // Run your action in here!
-
-
-                })
+        Trajectory M3 = drive.trajectoryBuilder(new Pose2d(20, -33, Math.toRadians(180)))
+                .lineToLinearHeading(new Pose2d(-59, -31.5, Math.toRadians(177)))
 
                 .build();
 
-
-        Trajectory M2 = drive.trajectoryBuilder(M1.end())
-
-                .addTemporalMarker(0, () -> {
-                    // Run your action in here!
-
-                })
-
-                .addTemporalMarker(0.5, () -> {
-                })
-
-                .lineToLinearHeading(new Pose2d(44.5, -37, Math.toRadians(0)))
-
+        Trajectory M4 = drive.trajectoryBuilder(new Pose2d(-59, -31.5, Math.toRadians(177)))
+                .lineToLinearHeading(new Pose2d(-40, -33, Math.toRadians(0)))
 
                 .build();
 
-
-        Trajectory M3 = drive.trajectoryBuilder(M2.end())
-
-                .addTemporalMarker(0.3, () -> {
-                    // Run your action in here!
-
-
-                })
-
-                .addTemporalMarker(0.1, () -> {
-                })
-
-                .lineToLinearHeading(new Pose2d(43.5, -13, Math.toRadians(270)))
-
-
+        Trajectory M5 = drive.trajectoryBuilder(new Pose2d(-40, -33, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(55, -38, Math.toRadians(0)))
 
                 .build();
 
-        Trajectory M4 = drive.trajectoryBuilder(M3.end())
-                .strafeLeft(15)
-                .build();
-
-        //left traj
-
-        Trajectory L1 = drive.trajectoryBuilder(new Pose2d(11.5, -65))
-                .lineToLinearHeading(new Pose2d(11.5, -41, Math.toRadians(150)))
-
-                .addTemporalMarker(0, () -> {
-                    // Run your action in here!
-
-
-                })
-
+        Trajectory L1 = drive.trajectoryBuilder(new Pose2d(12,-60,90))
+                .splineToLinearHeading(new Pose2d(12,-31,Math.toRadians(90)),Math.toRadians(180))
 
                 .build();
 
-
-        Trajectory L2 = drive.trajectoryBuilder(L1.end())
-                .addTemporalMarker(0, () -> {
-                    // Run your action in here!
-
-                })
-
-                .addTemporalMarker(0.5, () -> {
-                })
-
-                .lineToLinearHeading(new Pose2d(44.5, -30, Math.toRadians(0)))
-
-                .build();
-
-
-        Trajectory L3 = drive.trajectoryBuilder(L2.end())
-                .lineToLinearHeading(new Pose2d(43.5, -13, Math.toRadians(270)))
-
-
-                .addTemporalMarker(0, () -> {
-                    // Run your action in here!
-
-
-                })
-
-                .addTemporalMarker(0.1, () -> {
-                })
-
-
-                .build();
-
-        Trajectory L4 = drive.trajectoryBuilder(L3.end())
-                .strafeLeft(15)
-                .build();
 
 
 
@@ -219,6 +145,7 @@ public class AutonomousTest extends LinearOpMode {
 
             telemetryTfod();
 
+            gripper(leftclose, rightclose);
             // Push telemetry to the Driver Station.
             telemetry.update();
         }
@@ -226,64 +153,66 @@ public class AutonomousTest extends LinearOpMode {
         // Share the CPU.
         sleep(20);
 
-
         if (biconPosition == 1) {  //code RedC_trajLn
+            gripper(leftclose,rightclose);
+            armadjust(1,-100,0.55);
 
+            drive.followTrajectory(L1);
 
-            drive.followTrajectory(L1);  //move to backdrop place, extend arm
+            gripper(leftopen,rightclose);
+            customSleep(300);
 
-
-            drive.followTrajectory(L2);
-
-            customSleep(100);
-
-
-            drive.followTrajectory(L3);
-            drive.followTrajectory(L4);
-
-
-
-
-
+            armadjust(1,-500,0.65);
 
 
         }
         else if (biconPosition == 2) {  //code RedC_trajMn
+            gripper(leftclose, rightclose);
+            armadjust(1, -100, 0.55);
 
+            drive.followTrajectory(M1);
 
-            drive.followTrajectory(M1);  //move to backdrop place, extend arm
+            gripper(leftopen, rightclose);
+            customSleep(300);
 
-            customSleep(100);
+            armadjust(1, -500, 0.65);
+            gripper(leftopen,rightclose);
+
+            drive.followTrajectory(backCenter);
+
+            customSleep(300);
+
+            gripper(leftopen,rightopen);
+            customSleep(300);
 
             drive.followTrajectory(M2);
-
-            customSleep(100);
-
+            armadjust(1, -100, 0.55);
+            customSleep(300);
 
             drive.followTrajectory(M3);
+            armadjust(1, -100, 0.55);
+            customSleep(300);
+
+            gripper(leftclose, rightclose);
+            customSleep(1000);
+
             drive.followTrajectory(M4);
+            customSleep(300);
+            armadjust(1, -500, 0.65);
 
 
+            drive.followTrajectory(M5);
+            customSleep(300);
+            armadjust(1, -700, 0.55);
+            customSleep(1000);
 
+            gripper(leftopen, rightclose);
+            customSleep(500);
+            armadjust(1, -700, 0.50);
+            customSleep(1000);
 
         }
         else {  //code RedC_trajRn
-
-
-
-            drive.followTrajectory(R1);  //move to backdrop place, extend arm
-
-            customSleep(100);
-
-            drive.followTrajectory(rotateR);
-
-
-            customSleep(100);
-
-
-            drive.followTrajectory(R2);
-
-            drive.followTrajectory(R3);
 
 
 

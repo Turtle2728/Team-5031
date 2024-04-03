@@ -233,57 +233,15 @@ public class FTC23020RED extends LinearOpMode {
             drive.followTrajectory(L1);  //move to backdrop place, extend arm
 
 
-            drive.followTrajectory(L2);
-
-            customSleep(100);
-
-
-            drive.followTrajectory(L3);
-            drive.followTrajectory(L4);
-
-
-
-
-
-
-
         }
         else if (biconPosition == 2) {  //code RedC_trajMn
 
-
-            drive.followTrajectory(M1);  //move to backdrop place, extend arm
-
-            customSleep(100);
-
-            drive.followTrajectory(M2);
-
-            customSleep(100);
-
-
-            drive.followTrajectory(M3);
-            drive.followTrajectory(M4);
 
 
 
 
         }
         else {  //code RedC_trajRn
-
-
-
-            drive.followTrajectory(R1);  //move to backdrop place, extend arm
-
-            customSleep(100);
-
-            drive.followTrajectory(rotateR);
-
-
-            customSleep(100);
-
-
-            drive.followTrajectory(R2);
-
-            drive.followTrajectory(R3);
 
 
 
