@@ -62,7 +62,11 @@ public class FTC23020 extends LinearOpMode {
         if (isStopRequested()) return;
 
         while (opModeIsActive()) {
-
+            telemetry.addData("encoder", ARM.getCurrentPosition());
+            telemetry.addData("wPosition", wPOSITION);
+            telemetry.addData("X", gamepad1.left_stick_x);
+            telemetry.addData("gripper1", gripper1);
+            telemetry.addData("gripper2", gripper2);
             telemetry.update();
 
             swDowncurrent = gamepad2.dpad_left;
@@ -108,21 +112,21 @@ public class FTC23020 extends LinearOpMode {
             }
 
             while (gamepad2.b) {
-                targetPosition = currentPosition - 100;
+                targetPosition = currentPosition + 100;
                 ARM.setTargetPosition(targetPosition);
                 ARM.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 ARM.setPower(0.6);
                 currentPosition = ARM.getCurrentPosition();
             }
             while (gamepad2.x) {
-                if (targetPosition < -10) {
-                    targetPosition = currentPosition + 100;
+                if (targetPosition > 10) {
+                    targetPosition = currentPosition - 100;
                     ARM.setTargetPosition(targetPosition);
                     ARM.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                     ARM.setPower(0.3);
                     currentPosition = ARM.getCurrentPosition();
                 } else {
-                    targetPosition = -10;
+                    targetPosition = 10;
                     ARM.setTargetPosition(targetPosition);
                     ARM.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                     ARM.setPower(0.3);
@@ -131,7 +135,7 @@ public class FTC23020 extends LinearOpMode {
             }
 
             while (gamepad2.a) {
-                targetPosition = -20;
+                targetPosition = 20;
                 ARM.setTargetPosition(targetPosition);
                 ARM.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 ARM.setPower(1);
@@ -139,7 +143,7 @@ public class FTC23020 extends LinearOpMode {
             }
 
             if (gamepad2.y) {
-                targetPosition = -2000;
+                targetPosition = 2000;
                 ARM.setTargetPosition(targetPosition);
                 ARM.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 ARM.setPower(1);
@@ -178,11 +182,6 @@ public class FTC23020 extends LinearOpMode {
             }
 
             }
-            telemetry.addData("encoder", ARM.getCurrentPosition());
-            telemetry.addData("wPosition", wPOSITION);
-            telemetry.addData("X", gamepad1.left_stick_x);
-            telemetry.addData("gripper1", gripper1);
-            telemetry.addData("gripper2", gripper2);
-            telemetry.update();
+
         }
     }

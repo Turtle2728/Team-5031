@@ -36,8 +36,8 @@ public class AutonomousTest extends LinearOpMode {
     double rightopen = 0.6;
     double leftopen = 0.4;
 
-    double rightclose = 0.9;
-    double leftclose = 0.1;
+    double rightclose = 1;
+    double leftclose = 0;
 
 
     DcMotor armMotor;
@@ -98,7 +98,7 @@ public class AutonomousTest extends LinearOpMode {
                 .build();
 
         Trajectory backCenter = drive.trajectoryBuilder(new Pose2d(12, -31, Math.toRadians(90)))//M.b.d
-                .lineToLinearHeading(new Pose2d(52, -31, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(52, -35, Math.toRadians(0)))
 
                 .build();
 
@@ -118,7 +118,12 @@ public class AutonomousTest extends LinearOpMode {
                 .build();
 
         Trajectory M5 = drive.trajectoryBuilder(new Pose2d(-40, -33, Math.toRadians(0)))
-                .lineToLinearHeading(new Pose2d(55, -38, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(52, -38, Math.toRadians(0)))
+
+                .build();
+
+        Trajectory M6 = drive.trajectoryBuilder(new Pose2d(52,-38,Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(50,-10,Math.toRadians(180)))
 
                 .build();
 
@@ -132,6 +137,10 @@ public class AutonomousTest extends LinearOpMode {
 
                 .build();
 
+        Trajectory L2 = drive.trajectoryBuilder(new Pose2d(50,-30,Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(20,-33,Math.toRadians(180)))
+
+                .build();
 
 
 
@@ -160,14 +169,14 @@ public class AutonomousTest extends LinearOpMode {
 
         if (biconPosition == 1) {  //code RedC_trajLn
             gripper(leftclose,rightclose);
-            armadjust(1,-100,0.55);
+            armadjust(1,+100,0.7);
 
             drive.followTrajectory(L1);
 
             gripper(leftopen,rightclose);
             customSleep(300);
 
-            armadjust(1,-500,0.65);
+            armadjust(1,+500,0.65);
             gripper(leftopen,rightclose);
 
             drive.followTrajectory(backleft);
@@ -177,18 +186,23 @@ public class AutonomousTest extends LinearOpMode {
             gripper(leftopen,rightopen);
             customSleep(300);
 
+            drive.followTrajectory(L2);
+            armadjust(1,100,0.55);
+            customSleep(300);
+
 
         }
         else if (biconPosition == 2) {  //code RedC_trajMn
             gripper(leftclose, rightclose);
-            armadjust(1, -100, 0.55);
+            armadjust(1, 100, 0.7);
 
             drive.followTrajectory(M1);
 
+            armadjust(1,100,0.5);
             gripper(leftopen, rightclose);
             customSleep(300);
 
-            armadjust(1, -500, 0.65);
+            armadjust(1, 500, 0.65);
             gripper(leftopen,rightclose);
 
             drive.followTrajectory(backCenter);
@@ -199,11 +213,11 @@ public class AutonomousTest extends LinearOpMode {
             customSleep(300);
 
             drive.followTrajectory(M2);
-            armadjust(1, -100, 0.55);
+            armadjust(1, 100, 0.55);
             customSleep(300);
 
             drive.followTrajectory(M3);
-            armadjust(1, -100, 0.55);
+            armadjust(1, 70, 0.55);
             customSleep(300);
 
             gripper(leftclose, rightclose);
@@ -211,17 +225,22 @@ public class AutonomousTest extends LinearOpMode {
 
             drive.followTrajectory(M4);
             customSleep(300);
-            armadjust(1, -500, 0.65);
+            armadjust(1, 500, 0.65);
 
 
             drive.followTrajectory(M5);
             customSleep(300);
-            armadjust(1, -700, 0.55);
+            armadjust(1, 700, 0.55);
             customSleep(1000);
 
             gripper(leftopen, rightclose);
             customSleep(500);
-            armadjust(1, -700, 0.50);
+            armadjust(1, 700, 0.50);
+            customSleep(1000);
+
+            drive.followTrajectory(M6);
+            customSleep(300);
+            armadjust(1,0,0.55);
             customSleep(1000);
 
         }
