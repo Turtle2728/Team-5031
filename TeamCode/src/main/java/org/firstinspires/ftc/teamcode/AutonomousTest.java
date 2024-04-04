@@ -207,29 +207,29 @@ public class AutonomousTest extends LinearOpMode {
 
             drive.followTrajectory(backCenter);
 
-            customSleep(300);
+            customSleep(200);
 
             gripper(leftopen,rightopen);
-            customSleep(300);
+            customSleep(200);
 
             drive.followTrajectory(M2);
             armadjust(1, 100, 0.55);
-            customSleep(300);
+            customSleep(200);
 
             drive.followTrajectory(M3);
             armadjust(1, 70, 0.55);
-            customSleep(300);
+            customSleep(200);
 
             gripper(leftclose, rightclose);
             customSleep(1000);
 
             drive.followTrajectory(M4);
-            customSleep(300);
+            customSleep(200);
             armadjust(1, 500, 0.65);
 
 
             drive.followTrajectory(M5);
-            customSleep(300);
+            customSleep(200);
             armadjust(1, 700, 0.55);
             customSleep(1000);
 
@@ -239,7 +239,7 @@ public class AutonomousTest extends LinearOpMode {
             customSleep(1000);
 
             drive.followTrajectory(M6);
-            customSleep(300);
+            customSleep(200);
             armadjust(1,0,0.55);
             customSleep(1000);
 
