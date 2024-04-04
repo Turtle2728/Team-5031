@@ -178,7 +178,7 @@ public class FTC23020 extends LinearOpMode {
             if (gamepad1.right_bumper) {
                 gripper1.setPosition(0.6);
             } else {
-                gripper1.setPosition(0.9);
+                gripper1.setPosition(0.95);
             }
 
             }
