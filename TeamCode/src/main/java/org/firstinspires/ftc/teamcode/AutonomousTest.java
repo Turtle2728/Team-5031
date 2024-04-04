@@ -194,7 +194,7 @@ public class AutonomousTest extends LinearOpMode {
         }
         else if (biconPosition == 2) {  //code RedC_trajMn
             gripper(leftclose, rightclose);
-            armadjust(1, 100, 0.7);
+            armadjust(1, 100, 0.8);
 
             drive.followTrajectory(M1);
 
