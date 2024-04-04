@@ -142,6 +142,13 @@ public class AutonomousTest extends LinearOpMode {
 
                 .build();
 
+        Trajectory L3 = drive.trajectoryBuilder(new Pose2d(20,-33,Math.toRadians(180)))
+                .lineToLinearHeading(new Pose2d(-59,-31.5,Math.toRadians(177)))
+
+                .build();
+
+
+
 
 
 
@@ -174,21 +181,28 @@ public class AutonomousTest extends LinearOpMode {
             drive.followTrajectory(L1);
 
             gripper(leftopen,rightclose);
-            customSleep(300);
+            customSleep(200);
 
             armadjust(1,+500,0.65);
             gripper(leftopen,rightclose);
 
             drive.followTrajectory(backleft);
 
-            customSleep(300);
+            customSleep(200);
 
             gripper(leftopen,rightopen);
-            customSleep(300);
+            customSleep(200);
 
             drive.followTrajectory(L2);
             armadjust(1,100,0.55);
-            customSleep(300);
+            customSleep(200);
+
+            drive.followTrajectory(L3);
+            armadjust(1, 70, 0.55);
+            customSleep(200);
+
+            gripper(leftclose, rightclose);
+            customSleep(500);
 
 
         }
@@ -200,7 +214,7 @@ public class AutonomousTest extends LinearOpMode {
 
             armadjust(1,100,0.5);
             gripper(leftopen, rightclose);
-            customSleep(300);
+            customSleep(200);
 
             armadjust(1, 500, 0.65);
             gripper(leftopen,rightclose);
