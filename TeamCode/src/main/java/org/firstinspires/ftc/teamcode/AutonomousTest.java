@@ -172,6 +172,11 @@ public class AutonomousTest extends LinearOpMode {
 
                 .build();
 
+        Trajectory R1 = drive.trajectoryBuilder(new Pose2d(12,-60,Math.toRadians(90)))
+                .lineToLinearHeading(new Pose2d(24,-32,Math.toRadians(180)))
+
+                .build();
+
 
 
 
@@ -303,9 +308,16 @@ public class AutonomousTest extends LinearOpMode {
 
         }
         else {  //code RedC_trajRn
+            gripper(leftclose, rightclose);
+            armadjust(1, 100, 0.5);
 
+            drive.followTrajectory(R1);
 
+            gripper(leftopen, rightclose);
+            customSleep(200);
 
+            armadjust(1, 400, 0.65);
+            gripper(leftopen,rightclose);
         }
 
 
