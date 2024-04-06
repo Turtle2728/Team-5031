@@ -2,6 +2,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -92,98 +93,134 @@ public class AutonomousTest extends LinearOpMode {
 
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
-
-
         drive.setPoseEstimate(new Pose2d(12, -60, Math.toRadians(90)));
-
-
-
-
-
-        //right traj
 
         Trajectory M1 = drive.trajectoryBuilder(new Pose2d(12, -60, Math.toRadians(90)))//M.b.p
                 .lineToLinearHeading(new Pose2d(12, -32, Math.toRadians(90)))
 
                 .build();
 
-        Trajectory backCenter = drive.trajectoryBuilder(new Pose2d(12, -32, Math.toRadians(90)))//M.b.d
+        Trajectory backCenter = drive.trajectoryBuilder(M1.end())//M.b.d
                 .lineToLinearHeading(new Pose2d(50.5, -31, Math.toRadians(0)))
 
                 .build();
 
-        Trajectory M2 = drive.trajectoryBuilder(new Pose2d(50.5, -31, Math.toRadians(0)))
+        Trajectory M2 = drive.trajectoryBuilder(backCenter.end())
                 .lineToLinearHeading(new Pose2d(20, -35, Math.toRadians(180)))
 
                 .build();
 
-        Trajectory M3 = drive.trajectoryBuilder(new Pose2d(20, -35, Math.toRadians(180)))
+        Trajectory M3 = drive.trajectoryBuilder(M2.end())
                 .lineToLinearHeading(new Pose2d(-57, -30.5, Math.toRadians(177)))
 
                 .build();
 
-        Trajectory M4 = drive.trajectoryBuilder(new Pose2d(-57, -30.5, Math.toRadians(177)))
+        Trajectory M4 = drive.trajectoryBuilder(M3.end())
                 .lineToLinearHeading(new Pose2d(-40, -33, Math.toRadians(0)))
 
                 .build();
 
-        Trajectory M5 = drive.trajectoryBuilder(new Pose2d(-40, -33, Math.toRadians(0)))
+        Trajectory M5 = drive.trajectoryBuilder(M4.end())
                 .lineToLinearHeading(new Pose2d(52, -40, Math.toRadians(0)))
 
                 .build();
 
-        Trajectory M6 = drive.trajectoryBuilder(new Pose2d(51,-40,Math.toRadians(0)))
+        Trajectory M6 = drive.trajectoryBuilder(M5.end())
                 .lineToLinearHeading(new Pose2d(51,-55,Math.toRadians(180))) // 48,-10 parking center
 
                 .build();
 
         Trajectory L1 = drive.trajectoryBuilder(new Pose2d(12,-60,Math.toRadians(90)))
-                .splineToLinearHeading(new Pose2d(12,-32,Math.toRadians(180)),Math.toRadians(90))
+                .splineToLinearHeading(new Pose2d(14,-27,Math.toRadians(180)),Math.toRadians(90))
 
                 .build();
 
-        Trajectory backleft = drive.trajectoryBuilder(new Pose2d(12,-32,Math.toRadians(180)))
-                .lineToLinearHeading(new Pose2d(50.5,-28,Math.toRadians(0)))
+        Trajectory backleft = drive.trajectoryBuilder(L1.end())
+                .lineToLinearHeading(new Pose2d(51.5,-26,Math.toRadians(0)))
 
                 .build();
 
-        Trajectory L2 = drive.trajectoryBuilder(new Pose2d(50.5,-28,Math.toRadians(0)))
+        Trajectory L2 = drive.trajectoryBuilder(backleft.end())
                 .lineToLinearHeading(new Pose2d(20,-55,Math.toRadians(180)))
 
                 .build();
 
-        Trajectory L3 = drive.trajectoryBuilder(new Pose2d(20,-55,Math.toRadians(180)))
-                .lineToLinearHeading(new Pose2d(-57,-30.5,Math.toRadians(177)))
+        Trajectory L3 = drive.trajectoryBuilder(L2.end())
+                .lineToLinearHeading(new Pose2d(-28,-55,Math.toRadians(180)))
 
                 .build();
 
-        Trajectory L4 = drive.trajectoryBuilder(new Pose2d(-57,-30.5,Math.toRadians(177)))
-                .lineToLinearHeading(new Pose2d(-40,-33,Math.toRadians(0)))
+        Trajectory L4 = drive.trajectoryBuilder(L3.end())
+                .splineToLinearHeading(new Pose2d(-45, -32, Math.toRadians(180)), Math.toRadians(0))
+                .build();
+
+        Trajectory L5 = drive.trajectoryBuilder(L4.end())
+                .lineToLinearHeading(new Pose2d(-55,-32,Math.toRadians(177)))
 
                 .build();
 
-        Trajectory L5 = drive.trajectoryBuilder(new Pose2d(-40,-33,Math.toRadians(0)))
-                .lineToLinearHeading(new Pose2d(52,-40,Math.toRadians(0)))
+        Trajectory L6 = drive.trajectoryBuilder(L5.end())
+                .lineToLinearHeading(new Pose2d(-50,-57,Math.toRadians(0)))
 
                 .build();
 
-        Trajectory L6 = drive.trajectoryBuilder(new Pose2d(52,-40,Math.toRadians(0)))
+        Trajectory L7 = drive.trajectoryBuilder(L6.end())
+                .lineToLinearHeading(new Pose2d(50,-57,Math.toRadians(0)))
+
+                .build();
+
+        Trajectory L8 = drive.trajectoryBuilder(L7.end())
+                .lineToLinearHeading(new Pose2d(52,-45,Math.toRadians(0)))
+
+                .build();
+        Trajectory L9 = drive.trajectoryBuilder(L8.end())
                 .lineToLinearHeading(new Pose2d(51,-55,Math.toRadians(180)))
 
                 .build();
 
         Trajectory R1 = drive.trajectoryBuilder(new Pose2d(12,-60,Math.toRadians(90)))
-                .lineToLinearHeading(new Pose2d(24,-32,Math.toRadians(180)))
+                .lineToLinearHeading(new Pose2d(52,-38,Math.toRadians(0)))
 
                 .build();
 
+        Trajectory R2 = drive.trajectoryBuilder(R1.end())
+                .lineToLinearHeading(new Pose2d(32,-38,Math.toRadians(90)))
+                .build();
 
+        Trajectory R3 = drive.trajectoryBuilder(R2.end())
+                .lineToLinearHeading(new Pose2d(30,-40,Math.toRadians(117)))
+                .build();
 
+        Trajectory R4 = drive.trajectoryBuilder(R3.end())
+                .lineToLinearHeading(new Pose2d(15,-55,Math.toRadians(180)))
 
+                .build();
 
+        Trajectory R5 = drive.trajectoryBuilder(R4.end())
+                        .lineToLinearHeading(new Pose2d(-33,-55,Math.toRadians(180)))
+                                .build();
 
-
-
+        Trajectory R6 = drive.trajectoryBuilder(R5.end())
+                        .lineToLinearHeading(new Pose2d(-54,-44,Math.toRadians(138)))
+                                .build();
+        Trajectory R7 = drive.trajectoryBuilder(R6.end())
+                        .lineToLinearHeading(new Pose2d(-57,-35, Math.toRadians(160)))
+                                .build();
+        Trajectory R8 = drive.trajectoryBuilder(R7.end())
+                        .lineToLinearHeading(new Pose2d(-54, -38,Math.toRadians(138)))
+                                .build();
+        Trajectory R9 = drive.trajectoryBuilder(R8.end())
+                        .lineToLinearHeading(new Pose2d(-37, -58, Math.toRadians(0)))
+                                .build();
+        Trajectory R10 = drive.trajectoryBuilder(R9.end())
+                        .lineToLinearHeading(new Pose2d(15,-58, Math.toRadians(0)))
+                                .build();
+        Trajectory R11 = drive.trajectoryBuilder(R10.end())
+                        .lineToLinearHeading(new Pose2d(54,-28,Math.toRadians(0)))
+                                .build();
+        Trajectory R12 = drive.trajectoryBuilder(R11.end())
+                        .lineToLinearHeading(new Pose2d(51,-58, Math.toRadians(180)))
+                                .build();
         initTfod();
 
         while (!isStarted() && !isStopRequested()) {
@@ -192,7 +229,6 @@ public class AutonomousTest extends LinearOpMode {
             telemetry.addData(">", "Touch Play to start OpMode");
             telemetry.addData("position", biconPosition);
             telemetry.update();
-
 
             telemetryTfod();
 
@@ -227,34 +263,37 @@ public class AutonomousTest extends LinearOpMode {
             drive.followTrajectory(backleft);
             customSleep(200);
             gripper(leftopen,rightopen);
-            customSleep(500);
+            customSleep(200);
             armadjust(1, 600, 0.5);
-            customSleep(500);
+            customSleep(200);
 
             drive.followTrajectory(L2);
             armadjust(1, 150, 0.5);
             customSleep(200);
 
             drive.followTrajectory(L3);
-            customSleep(200);
-
-            gripper(leftclose, rightclose);
-            customSleep(500);
-            armadjust(1, 400, 0.65);
 
             drive.followTrajectory(L4);
-            customSleep(200);
-
 
             drive.followTrajectory(L5);
-            armadjust(1, 600, 0.60);
-            customSleep(500);
-            gripper(leftopen, rightopen);
-            customSleep(500);
-            armadjust(1, 600, 0.55);
-            customSleep(1500);
+            gripper(leftclose, rightclose);
+            customSleep(200);
+            armadjust(1, 400, 0.65);
 
             drive.followTrajectory(L6);
+            customSleep(200);
+
+            drive.followTrajectory(L7);
+            customSleep(200);
+            drive.followTrajectory(L8);
+            armadjust(1, 600, 0.60);
+            customSleep(200);
+            gripper(leftopen, rightopen);
+            customSleep(200);
+            armadjust(1, 600, 0.55);
+            customSleep(1000);
+
+            drive.followTrajectory(L9);
             customSleep(200);
             armadjust(1,0,0.55);
             customSleep(1000);
@@ -274,9 +313,9 @@ public class AutonomousTest extends LinearOpMode {
             drive.followTrajectory(backCenter);
             customSleep(200);
             gripper(leftopen,rightopen);
-            customSleep(500);
+            customSleep(200);
             armadjust(1, 600, 0.5);
-            customSleep(500);
+            customSleep(200);
 
             drive.followTrajectory(M2);
             armadjust(1, 150, 0.5);
@@ -286,12 +325,11 @@ public class AutonomousTest extends LinearOpMode {
             customSleep(200);
 
             gripper(leftclose, rightclose);
-            customSleep(500);
+            customSleep(200);
             armadjust(1, 400, 0.65);
 
             drive.followTrajectory(M4);
             customSleep(200);
-
 
             drive.followTrajectory(M5);
             armadjust(1, 600, 0.60);
@@ -309,15 +347,64 @@ public class AutonomousTest extends LinearOpMode {
         }
         else {  //code RedC_trajRn
             gripper(leftclose, rightclose);
-            armadjust(1, 100, 0.5);
+            customSleep(200);
+            armadjust(1, 500, 0.55);
 
             drive.followTrajectory(R1);
 
-            gripper(leftopen, rightclose);
+            gripper(leftclose,rightopen);
             customSleep(200);
 
-            armadjust(1, 400, 0.65);
-            gripper(leftopen,rightclose);
+            drive.followTrajectory(R2);
+            armadjust(1,0,0.5);
+            customSleep(200);
+
+            drive.followTrajectory(R3);
+            gripper(leftopen,rightopen);
+            armadjust(1,200,0.5);
+            customSleep(200);
+
+
+            drive.followTrajectory(R4);
+
+            drive.followTrajectory(R5);
+
+            drive.followTrajectory(R6);
+            armadjust(1,0,0.55);
+
+            drive.followTrajectory(R7);
+            gripper(leftclose,rightclose);
+            customSleep(200);
+
+            drive.followTrajectory(R8);
+            armadjust(1,200,0.55);
+
+            drive.followTrajectory(R9);
+
+            drive.followTrajectory(R10);
+            armadjust(1,600,0.5);
+
+            drive.followTrajectory(R11);
+            gripper(leftopen,rightopen);
+            customSleep(500);
+            armadjust(1,600,0.45);
+            customSleep(500);
+
+            drive.followTrajectory(R12);
+            armadjust(1,0,0.65);
+            customSleep(1000);
+
+
+
+
+
+
+
+
+
+
+
+
         }
 
 
@@ -364,7 +451,7 @@ public class AutonomousTest extends LinearOpMode {
             double x = (recognition.getLeft() + recognition.getRight()) / 2;
             double y = (recognition.getTop()  + recognition.getBottom()) / 2;
 
-            if (x > 0 && x < 300) {
+            if (x > 120 && x < 300) {
                 biconPosition = 2;
             } else if (x >= 300) {
                 biconPosition = 3;

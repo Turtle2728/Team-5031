@@ -111,14 +111,14 @@ public class FTC23020 extends LinearOpMode {
                 shooting.setPosition(0.37);
             }
 
-            while (gamepad2.b) {
+            if (gamepad2.b) {
                 targetPosition = currentPosition + 100;
                 ARM.setTargetPosition(targetPosition);
                 ARM.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 ARM.setPower(0.6);
                 currentPosition = ARM.getCurrentPosition();
             }
-            while (gamepad2.x) {
+            if (gamepad2.x) {
                 if (targetPosition > 10) {
                     targetPosition = currentPosition - 100;
                     ARM.setTargetPosition(targetPosition);
@@ -134,20 +134,52 @@ public class FTC23020 extends LinearOpMode {
                 }
             }
 
-            while (gamepad2.a) {
+            if (gamepad2.a) {
                 targetPosition = 20;
                 ARM.setTargetPosition(targetPosition);
                 ARM.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 ARM.setPower(1);
                 currentPosition = ARM.getCurrentPosition();
             }
-
-            if (gamepad2.y) {
+            //리깅단축키
+            if (gamepad2.right_bumper) {
                 targetPosition = 2000;
                 ARM.setTargetPosition(targetPosition);
                 ARM.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 ARM.setPower(1);
                 currentPosition = ARM.getCurrentPosition();
+            }
+            //백스테이지 높은 층 단축키
+
+            if (gamepad2.y) {
+                targetPosition = 2480;
+                ARM.setTargetPosition(targetPosition);
+                ARM.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                ARM.setPower(1);
+                currentPosition = ARM.getCurrentPosition();
+                wrist.setPosition(0.5);
+            }
+
+            //강제로 팔 내리는 키
+            if (gamepad2.left_stick_button) {
+                targetPosition = currentPosition - 20;
+                ARM.setTargetPosition(targetPosition);
+                ARM.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                ARM.setPower(0.3);
+                currentPosition = ARM.getCurrentPosition();
+            }
+
+            if (gamepad2.right_stick_button) {
+                targetPosition = currentPosition + 20;
+                ARM.setTargetPosition(targetPosition);
+                ARM.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                ARM.setPower(0.3);
+                currentPosition = ARM.getCurrentPosition();
+            }
+
+            if (gamepad2.options) {
+                ARM.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                currentPosition=0;
             }
 
             while (gamepad2.dpad_up) {
