@@ -24,7 +24,8 @@ public class FTC23020 extends LinearOpMode {
         DcMotor leftRear = hardwareMap.dcMotor.get("leftRear");
         DcMotor rightRear = hardwareMap.dcMotor.get("rightRear");
         DcMotor ARM = hardwareMap.dcMotor.get("ARM");
-        Servo shooting = hardwareMap.servo.get("shooting");
+        Servo Shooting = hardwareMap.servo.get("Shooting");
+        Servo ShootingAngle = hardwareMap.servo.get("ShootingAngle");
         Servo wrist = hardwareMap.servo.get("wrist");
         Servo gripper1 = hardwareMap.servo.get("gripper1");
         Servo gripper2 = hardwareMap.servo.get("gripper2");
@@ -54,6 +55,7 @@ public class FTC23020 extends LinearOpMode {
         boolean swUpcurrent;
         boolean swDownstatus = false;
         boolean swDowncurrent;
+
         int targetPosition = 0;
         int currentPosition = 0;
 
@@ -105,10 +107,16 @@ public class FTC23020 extends LinearOpMode {
             rightRear.setPower(rightRearPower);
 
             if (gamepad1.dpad_left) {
-                shooting.setPosition(0);
+                Shooting.setPosition(0);
             }
             if (gamepad1.dpad_right) {
-                shooting.setPosition(0.37);
+                Shooting.setPosition(0.37);
+            }
+            if (gamepad1.dpad_up) {
+                ShootingAngle.setPosition(0.8);
+            }
+            if (gamepad1.dpad_down) {
+                ShootingAngle.setPosition(1);
             }
 
             if (gamepad2.b) {

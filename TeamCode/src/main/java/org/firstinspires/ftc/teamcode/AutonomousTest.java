@@ -2,7 +2,6 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
-import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -361,6 +360,7 @@ public class AutonomousTest extends LinearOpMode {
 
             drive.followTrajectory(R3);
             gripper(leftopen,rightopen);
+            customSleep(200);
             armadjust(1,200,0.5);
             customSleep(200);
 
