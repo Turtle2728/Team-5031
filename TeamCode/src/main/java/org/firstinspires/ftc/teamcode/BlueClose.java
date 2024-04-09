@@ -91,10 +91,10 @@ public class BlueClose extends LinearOpMode {
 
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
-        drive.setPoseEstimate(new Pose2d(12, -60, Math.toRadians(90)));
+        drive.setPoseEstimate(new Pose2d(12, 60, Math.toRadians(270)));
 
-        Trajectory M1 = drive.trajectoryBuilder(new Pose2d(12, -60, Math.toRadians(90)))//M.b.p
-                .lineToLinearHeading(new Pose2d(12, -32, Math.toRadians(90)))
+        Trajectory M1 = drive.trajectoryBuilder(new Pose2d(12, 60, Math.toRadians(270)))//M.b.p
+                .lineToLinearHeading(new Pose2d(52, 34, Math.toRadians(0)))
 
                 .build();
 
@@ -248,12 +248,13 @@ public class BlueClose extends LinearOpMode {
 
         if (biconPosition == 1) {  //code RedC_trajLn
             gripper(leftclose, rightclose);
-            armadjust(1, 100, 0.5);
+            armadjust(1, 400, 0.65);
 
-            drive.followTrajectory(L1);
-
-            gripper(leftopen, rightclose);
+            drive.followTrajectory(M1);
+            gripper(leftclose, rightopen);
+            armadjust(1, 400, 0.65);
             customSleep(200);
+
 
             armadjust(1, 400, 0.65);
             gripper(leftopen,rightclose);
