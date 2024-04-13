@@ -197,20 +197,20 @@ public class BlueClose extends LinearOpMode {
         //오른쪽
 
         Trajectory R1 = drive.trajectoryBuilder(new Pose2d(12,65.3, Math.toRadians(270)))
-                .lineToLinearHeading(new Pose2d(12,40,Math.toRadians(200)))
+                .lineToLinearHeading(new Pose2d(13,40,Math.toRadians(200)))
                 .build();
 
         Trajectory R2 = drive.trajectoryBuilder(R1.end())
-                .lineToLinearHeading(new Pose2d(52.7,30,Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(53,35,Math.toRadians(0)))
                 .build();
 
         Trajectory R3 = drive.trajectoryBuilder(R2.end())
-                .lineToLinearHeading(new Pose2d(11.2,58, Math.toRadians(180)))
+                .lineToLinearHeading(new Pose2d(25,60, Math.toRadians(183)))
                 .build();
 
 
         Trajectory R4 = drive.trajectoryBuilder(R3.end())
-                .lineToLinearHeading(new Pose2d(-35,56,Math.toRadians(180)))
+                .lineToLinearHeading(new Pose2d(-35,60,Math.toRadians(183)))
                 .build();
 
         Trajectory R5 = drive.trajectoryBuilder(R4.end())
@@ -226,72 +226,25 @@ public class BlueClose extends LinearOpMode {
                 .build();
 
         Trajectory R8 = drive.trajectoryBuilder(R7.end())
-                .lineToLinearHeading(new Pose2d(-39.8,58,Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(-39.8,60,Math.toRadians(3)))
                 .build();
 
         Trajectory R9 = drive.trajectoryBuilder(R8.end())
-                .splineToConstantHeading(new Vector2d(11.2,58),Math.toRadians(0))
-                .addSpatialMarker(new Vector2d(11.2,58),() ->{
+                .splineToConstantHeading(new Vector2d(11.2,60),Math.toRadians(3))
+                .addSpatialMarker(new Vector2d(11.2,60),() ->{
                     armadjust(1,600,0.5);
                 })
-                .splineToConstantHeading(new Vector2d(53.5,43.3),Math.toRadians(0))
+                .splineToConstantHeading(new Vector2d(53.5,43.3),Math.toRadians(3))
                 .build();
 
         Trajectory R10 = drive.trajectoryBuilder(R9.end())
-                .lineToLinearHeading(new Pose2d(46,60.3,Math.toRadians(180)))
+                .lineToLinearHeading(new Pose2d(40,60.3,Math.toRadians(183)))
                 .build();
 
         Trajectory R11 = drive.trajectoryBuilder(R10.end())
-                .lineToLinearHeading(new Pose2d(58,60.3,Math.toRadians(180)))
-                .build();
-        /*
-        Trajectory R1 = drive.trajectoryBuilder(new Pose2d(12,65.3, Math.toRadians(270)))
-                .splineTo(new Vector2d(9,42.3),Math.toRadians(225))
-                    .build();
-
-        Trajectory R2 = drive.trajectoryBuilder(R1.end())
-                .lineToLinearHeading(new Pose2d(52.7,30,Math.toRadians(0)))
-                    .build();
-
-        Trajectory R3 = drive.trajectoryBuilder(R2.end())
-                .lineToLinearHeading(new Pose2d(11.2,58, Math.toRadians(180)))
-                    .build();
-
-
-        Trajectory R4 = drive.trajectoryBuilder(R3.end())
-                .splineToConstantHeading(new Vector2d(-35,58),Math.toRadians(180))
-                .splineToConstantHeading(new Vector2d(-48,35),Math.toRadians(200))
+                .lineToLinearHeading(new Pose2d(58,60.3,Math.toRadians(183)))
                 .build();
 
-        Trajectory R5 = drive.trajectoryBuilder(R4.end())
-                .lineToLinearHeading(new Pose2d(-51,30,Math.toRadians(210))) //흰색픽셀 잡는 위치
-                        .build();
-
-        Trajectory R6 = drive.trajectoryBuilder(R5.end())
-                .lineToLinearHeading(new Pose2d(-57.8,33,Math.toRadians(170))) //흰색픽셀 잡는 위치
-                .build();
-
-        Trajectory R7 = drive.trajectoryBuilder(R6.end())
-                .lineToLinearHeading(new Pose2d(-39.8,58,Math.toRadians(0)))
-                .build();
-
-        Trajectory R8 = drive.trajectoryBuilder(R7.end())
-                .splineToConstantHeading(new Vector2d(11.2,58),Math.toRadians(0))
-                .addSpatialMarker(new Vector2d(11.2,58),() ->{
-                    armadjust(1,600,0.5);
-                })
-                .splineToConstantHeading(new Vector2d(53.5,43.3),Math.toRadians(0))
-                .build();
-
-        Trajectory R9 = drive.trajectoryBuilder(R8.end())
-                .lineToLinearHeading(new Pose2d(46,60.3,Math.toRadians(180)))
-                .build();
-
-        Trajectory R10 = drive.trajectoryBuilder(R9.end())
-                .lineToLinearHeading(new Pose2d(58,60.3,Math.toRadians(180)))
-                .build();
-
-*/
         initTfod();
 
         while (!isStarted() && !isStopRequested()) {
@@ -416,24 +369,24 @@ public class BlueClose extends LinearOpMode {
             drive.followTrajectory(R1);
             gripper(leftopen, rightclose);
             customSleep(200);
-
             armadjust(1,400,0.65);
 
             drive.followTrajectory(R2);
             gripper(leftopen, rightopen);
             armadjust(1,500,0.5);
+            customSleep(200);
 
             drive.followTrajectory(R3);
 
             drive.followTrajectory(R4);
-            armadjust(1,0,0.5);
 
             drive.followTrajectory(R5);
+            armadjust(1,0,0.5);
 
             drive.followTrajectory(R6);
 
             drive.followTrajectory(R7);
-            gripper(leftclose, rightclose);
+            gripper(leftopen, rightclose);
             customSleep(400);
             armadjust(0.5,400,0.3);
 
@@ -441,9 +394,11 @@ public class BlueClose extends LinearOpMode {
 
             drive.followTrajectory(R9);
             gripper(leftopen, rightopen);
-            customSleep(200);
+            customSleep(500);
             armadjust(1,500,0.45);
             customSleep(200);
+            armadjust(1,700,0.6);
+
 
             drive.followTrajectory(R10);
             drive.followTrajectory(R11);

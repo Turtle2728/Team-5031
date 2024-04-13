@@ -109,7 +109,7 @@ public class FTC23020 extends LinearOpMode {
             if (gamepad1.dpad_left) {
                 Shooting.setPosition(0);
             }
-            if (gamepad1.ps) {
+            if (gamepad1.dpad_right) {
                 Shooting.setPosition(0.37);
             }
             if (gamepad1.dpad_up) {
