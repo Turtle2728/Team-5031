@@ -2,6 +2,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -16,18 +17,19 @@ import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.tfod.TfodProcessor;
 
+import java.security.spec.PSSParameterSpec;
 import java.util.List;
 
-@Autonomous(name = "BlueCloseTest", group = "BlueClose")
-public class BlueClose extends LinearOpMode {
 
+@Autonomous(name = "BlueCloseTest", group = "BlueClose", preselectTeleOp = "FTC23020")
+public class BlueClose extends LinearOpMode {
 
     int biconPosition = 1;
     private static final boolean USE_WEBCAM = true;
 
-    private static final String TFOD_MODEL_ASSET = "5031Red.tflite";
+    private static final String TFOD_MODEL_ASSET = "5031Blue.tflite";
 
-    private static final String[] LABELS = {"RED"};
+    private static final String[] LABELS = {"BLUE"};
 
     private TfodProcessor tfod;
 
@@ -91,134 +93,205 @@ public class BlueClose extends LinearOpMode {
 
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
-        drive.setPoseEstimate(new Pose2d(12, 60, Math.toRadians(270)));
+        drive.setPoseEstimate(new Pose2d(12, 65.3, Math.toRadians(270)));
 
-        Trajectory M1 = drive.trajectoryBuilder(new Pose2d(12, 60, Math.toRadians(270)))//M.b.p
-                .lineToLinearHeading(new Pose2d(52, 34, Math.toRadians(0)))
-
-                .build();
-
-        Trajectory backCenter = drive.trajectoryBuilder(M1.end())//M.b.d
-                .lineToLinearHeading(new Pose2d(50.5, -31, Math.toRadians(0)))
+        Trajectory M1 = drive.trajectoryBuilder(new Pose2d(12, 65.3, Math.toRadians(270)))//M.b.p
+                .lineToLinearHeading(new Pose2d(52, 39.3, Math.toRadians(0)))
 
                 .build();
 
-        Trajectory M2 = drive.trajectoryBuilder(backCenter.end())
-                .lineToLinearHeading(new Pose2d(20, -35, Math.toRadians(180)))
+        Trajectory M2 = drive.trajectoryBuilder(M1.end())
+                .lineToLinearHeading(new Pose2d(31, 36.3, Math.toRadians(225)))
 
                 .build();
 
         Trajectory M3 = drive.trajectoryBuilder(M2.end())
-                .lineToLinearHeading(new Pose2d(-57, -30.5, Math.toRadians(177)))
+                .lineToLinearHeading(new Pose2d(21, 37.3, Math.toRadians(225)))
 
                 .build();
 
         Trajectory M4 = drive.trajectoryBuilder(M3.end())
-                .lineToLinearHeading(new Pose2d(-40, -33, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(17.4, 37, Math.toRadians(180)))
 
                 .build();
 
         Trajectory M5 = drive.trajectoryBuilder(M4.end())
-                .lineToLinearHeading(new Pose2d(52, -40, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(-51, 38, Math.toRadians(200))) // 흰색 픽셀 잡는 위치
 
                 .build();
 
         Trajectory M6 = drive.trajectoryBuilder(M5.end())
-                .lineToLinearHeading(new Pose2d(51,-55,Math.toRadians(180))) // 48,-10 parking center
+                .lineToLinearHeading(new Pose2d(-57.8,40,Math.toRadians(170))) // 흰색 픽셀 잡는 위치
 
                 .build();
 
-        Trajectory L1 = drive.trajectoryBuilder(new Pose2d(12,-60,Math.toRadians(90)))
-                .splineToLinearHeading(new Pose2d(14,-27,Math.toRadians(180)),Math.toRadians(90))
+        Trajectory M7 = drive.trajectoryBuilder(M6.end())
+                .lineToLinearHeading(new Pose2d(42,40,Math.toRadians(180))) // 48,-10 parking center
 
                 .build();
 
-        Trajectory backleft = drive.trajectoryBuilder(L1.end())
-                .lineToLinearHeading(new Pose2d(51.5,-26,Math.toRadians(0)))
+        Trajectory M8 = drive.trajectoryBuilder(M7.end())
+                .lineToLinearHeading(new Pose2d(55,30.9,Math.toRadians(0))) // 흰색 픽셀 내려놓는 위치
 
                 .build();
 
-        Trajectory L2 = drive.trajectoryBuilder(backleft.end())
-                .lineToLinearHeading(new Pose2d(20,-55,Math.toRadians(180)))
+        Trajectory M9 = drive.trajectoryBuilder(M8.end())
+                .lineToLinearHeading(new Pose2d(45,57,Math.toRadians(180))) // 48,-10 parking center
 
+                .build();
+
+        Trajectory M10 = drive.trajectoryBuilder(M9.end())
+                .lineToLinearHeading(new Pose2d(57,62.3,Math.toRadians(180))) // 48,-10 parking center
+
+                .build();
+
+        Trajectory L1 = drive.trajectoryBuilder(new Pose2d(12,65.3,Math.toRadians(270)))
+                .lineToLinearHeading(new Pose2d(52.5,46,Math.toRadians(0)))
+                .build();
+
+        Trajectory L2 = drive.trajectoryBuilder(L1.end())
+                .lineToLinearHeading(new Pose2d(40,41.3,Math.toRadians(225)))
                 .build();
 
         Trajectory L3 = drive.trajectoryBuilder(L2.end())
-                .lineToLinearHeading(new Pose2d(-28,-55,Math.toRadians(180)))
-
+                .lineToLinearHeading(new Pose2d(31,46.3,Math.toRadians(225)))
                 .build();
 
         Trajectory L4 = drive.trajectoryBuilder(L3.end())
-                .splineToLinearHeading(new Pose2d(-45, -32, Math.toRadians(180)), Math.toRadians(0))
+                .lineToLinearHeading(new Pose2d(38,60.3,Math.toRadians(180)))
                 .build();
 
         Trajectory L5 = drive.trajectoryBuilder(L4.end())
-                .lineToLinearHeading(new Pose2d(-55,-32,Math.toRadians(177)))
-
+                .lineToLinearHeading(new Pose2d(-34,60.3,Math.toRadians(180)))
                 .build();
 
         Trajectory L6 = drive.trajectoryBuilder(L5.end())
-                .lineToLinearHeading(new Pose2d(-50,-57,Math.toRadians(0)))
-
+                .lineToLinearHeading(new Pose2d(-51, 38, Math.toRadians(200)))
                 .build();
 
         Trajectory L7 = drive.trajectoryBuilder(L6.end())
-                .lineToLinearHeading(new Pose2d(50,-57,Math.toRadians(0)))
-
+                .lineToLinearHeading(new Pose2d(-57.8,33,Math.toRadians(170)))
                 .build();
 
         Trajectory L8 = drive.trajectoryBuilder(L7.end())
-                .lineToLinearHeading(new Pose2d(52,-45,Math.toRadians(0)))
-
+                .lineToLinearHeading(new Pose2d(-34,60.3,Math.toRadians(0)))
                 .build();
+
         Trajectory L9 = drive.trajectoryBuilder(L8.end())
-                .lineToLinearHeading(new Pose2d(51,-55,Math.toRadians(180)))
-
+                .lineToLinearHeading(new Pose2d(50,60.3,Math.toRadians(0)))
                 .build();
 
-        Trajectory R1 = drive.trajectoryBuilder(new Pose2d(12,-60,Math.toRadians(90)))
-                .lineToLinearHeading(new Pose2d(52,-38,Math.toRadians(0)))
+        Trajectory L10 = drive.trajectoryBuilder(L9.end())
+                .lineToLinearHeading(new Pose2d(55,35.3,Math.toRadians(0)))
+                .build();
 
+        Trajectory L11 = drive.trajectoryBuilder(L10.end())
+                .lineToLinearHeading(new Pose2d(46,60.3,Math.toRadians(180)))
+                .build();
+
+        Trajectory L12 = drive.trajectoryBuilder(L11.end())
+                .lineToLinearHeading(new Pose2d(58,60.3,Math.toRadians(180)))
+                .build();
+
+
+        //오른쪽
+
+        Trajectory R1 = drive.trajectoryBuilder(new Pose2d(12,65.3, Math.toRadians(270)))
+                .lineToLinearHeading(new Pose2d(12,40,Math.toRadians(200)))
                 .build();
 
         Trajectory R2 = drive.trajectoryBuilder(R1.end())
-                .lineToLinearHeading(new Pose2d(32,-38,Math.toRadians(90)))
+                .lineToLinearHeading(new Pose2d(52.7,30,Math.toRadians(0)))
                 .build();
 
         Trajectory R3 = drive.trajectoryBuilder(R2.end())
-                .lineToLinearHeading(new Pose2d(30,-40,Math.toRadians(117)))
+                .lineToLinearHeading(new Pose2d(11.2,58, Math.toRadians(180)))
                 .build();
 
-        Trajectory R4 = drive.trajectoryBuilder(R3.end())
-                .lineToLinearHeading(new Pose2d(15,-55,Math.toRadians(180)))
 
+        Trajectory R4 = drive.trajectoryBuilder(R3.end())
+                .lineToLinearHeading(new Pose2d(-35,56,Math.toRadians(180)))
                 .build();
 
         Trajectory R5 = drive.trajectoryBuilder(R4.end())
-                        .lineToLinearHeading(new Pose2d(-33,-55,Math.toRadians(180)))
-                                .build();
+                .lineToLinearHeading(new Pose2d(-48,35,Math.toRadians(200)))
+                .build();
 
         Trajectory R6 = drive.trajectoryBuilder(R5.end())
-                        .lineToLinearHeading(new Pose2d(-54,-44,Math.toRadians(138)))
-                                .build();
+                .lineToLinearHeading(new Pose2d(-51,30,Math.toRadians(210))) //흰색픽셀 잡는 위치
+                .build();
+
         Trajectory R7 = drive.trajectoryBuilder(R6.end())
-                        .lineToLinearHeading(new Pose2d(-57,-35, Math.toRadians(160)))
-                                .build();
+                .lineToLinearHeading(new Pose2d(-57.8,33,Math.toRadians(170))) //흰색픽셀 잡는 위치
+                .build();
+
         Trajectory R8 = drive.trajectoryBuilder(R7.end())
-                        .lineToLinearHeading(new Pose2d(-54, -38,Math.toRadians(138)))
-                                .build();
+                .lineToLinearHeading(new Pose2d(-39.8,58,Math.toRadians(0)))
+                .build();
+
         Trajectory R9 = drive.trajectoryBuilder(R8.end())
-                        .lineToLinearHeading(new Pose2d(-37, -58, Math.toRadians(0)))
-                                .build();
+                .splineToConstantHeading(new Vector2d(11.2,58),Math.toRadians(0))
+                .addSpatialMarker(new Vector2d(11.2,58),() ->{
+                    armadjust(1,600,0.5);
+                })
+                .splineToConstantHeading(new Vector2d(53.5,43.3),Math.toRadians(0))
+                .build();
+
         Trajectory R10 = drive.trajectoryBuilder(R9.end())
-                        .lineToLinearHeading(new Pose2d(15,-58, Math.toRadians(0)))
-                                .build();
+                .lineToLinearHeading(new Pose2d(46,60.3,Math.toRadians(180)))
+                .build();
+
         Trajectory R11 = drive.trajectoryBuilder(R10.end())
-                        .lineToLinearHeading(new Pose2d(54,-28,Math.toRadians(0)))
-                                .build();
-        Trajectory R12 = drive.trajectoryBuilder(R11.end())
-                        .lineToLinearHeading(new Pose2d(51,-58, Math.toRadians(180)))
-                                .build();
+                .lineToLinearHeading(new Pose2d(58,60.3,Math.toRadians(180)))
+                .build();
+        /*
+        Trajectory R1 = drive.trajectoryBuilder(new Pose2d(12,65.3, Math.toRadians(270)))
+                .splineTo(new Vector2d(9,42.3),Math.toRadians(225))
+                    .build();
+
+        Trajectory R2 = drive.trajectoryBuilder(R1.end())
+                .lineToLinearHeading(new Pose2d(52.7,30,Math.toRadians(0)))
+                    .build();
+
+        Trajectory R3 = drive.trajectoryBuilder(R2.end())
+                .lineToLinearHeading(new Pose2d(11.2,58, Math.toRadians(180)))
+                    .build();
+
+
+        Trajectory R4 = drive.trajectoryBuilder(R3.end())
+                .splineToConstantHeading(new Vector2d(-35,58),Math.toRadians(180))
+                .splineToConstantHeading(new Vector2d(-48,35),Math.toRadians(200))
+                .build();
+
+        Trajectory R5 = drive.trajectoryBuilder(R4.end())
+                .lineToLinearHeading(new Pose2d(-51,30,Math.toRadians(210))) //흰색픽셀 잡는 위치
+                        .build();
+
+        Trajectory R6 = drive.trajectoryBuilder(R5.end())
+                .lineToLinearHeading(new Pose2d(-57.8,33,Math.toRadians(170))) //흰색픽셀 잡는 위치
+                .build();
+
+        Trajectory R7 = drive.trajectoryBuilder(R6.end())
+                .lineToLinearHeading(new Pose2d(-39.8,58,Math.toRadians(0)))
+                .build();
+
+        Trajectory R8 = drive.trajectoryBuilder(R7.end())
+                .splineToConstantHeading(new Vector2d(11.2,58),Math.toRadians(0))
+                .addSpatialMarker(new Vector2d(11.2,58),() ->{
+                    armadjust(1,600,0.5);
+                })
+                .splineToConstantHeading(new Vector2d(53.5,43.3),Math.toRadians(0))
+                .build();
+
+        Trajectory R9 = drive.trajectoryBuilder(R8.end())
+                .lineToLinearHeading(new Pose2d(46,60.3,Math.toRadians(180)))
+                .build();
+
+        Trajectory R10 = drive.trajectoryBuilder(R9.end())
+                .lineToLinearHeading(new Pose2d(58,60.3,Math.toRadians(180)))
+                .build();
+
+*/
         initTfod();
 
         while (!isStarted() && !isStopRequested()) {
@@ -246,7 +319,55 @@ public class BlueClose extends LinearOpMode {
         // Share the CPU.
         sleep(20);
 
-        if (biconPosition == 1) {  //code RedC_trajLn
+        if (biconPosition == 1) {  //왼쪽 코드
+
+            gripper(leftclose, rightclose);
+            armadjust(1, 400, 0.65);
+
+            drive.followTrajectory(L1);
+            gripper(leftclose, rightopen);
+            armadjust(1, 400, 0.65);
+            customSleep(200);
+
+            drive.followTrajectory(L2);
+            armadjust(1,100,0.55);
+
+            drive.followTrajectory(L3);
+            gripper(leftopen,rightopen);
+            customSleep(200);
+            armadjust(1,300,0.55);
+
+            drive.followTrajectory(L4);
+
+            drive.followTrajectory(L5);
+
+            drive.followTrajectory(L6);
+            armadjust(1, 0, 0.5);
+
+            drive.followTrajectory(L7);
+            gripper(leftopen,rightclose);
+            customSleep(300);
+            armadjust(1, 400, 0.3);
+
+            drive.followTrajectory(L8);
+            armadjust(1, 500, 0.5);
+
+            drive.followTrajectory(L9);
+            armadjust(1,600,0.5);
+
+            drive.followTrajectory(L10);
+            gripper(leftopen,rightopen);
+            customSleep(200);
+            armadjust(1,600,0.45);
+            customSleep(200);
+
+            drive.followTrajectory(L11);
+
+            drive.followTrajectory(L12);
+            armadjust(1, 0, 0.5);
+        }
+
+        else if (biconPosition == 2) {  //중간코드
             gripper(leftclose, rightclose);
             armadjust(1, 400, 0.65);
 
@@ -255,154 +376,77 @@ public class BlueClose extends LinearOpMode {
             armadjust(1, 400, 0.65);
             customSleep(200);
 
+            drive.followTrajectory(M2);
+            armadjust(1, 100, 0.55);
 
-            armadjust(1, 400, 0.65);
-            gripper(leftopen,rightclose);
-
-            drive.followTrajectory(backleft);
-            customSleep(200);
+            drive.followTrajectory(M3);
             gripper(leftopen,rightopen);
             customSleep(200);
+            armadjust(1, 300, 0.55);
+
+            drive.followTrajectory(M4);
+
+            drive.followTrajectory(M5);
+            armadjust(1, 0, 0.5);
+
+            drive.followTrajectory(M6);
+            gripper(leftopen,rightclose);
+            customSleep(400);
+            armadjust(1, 400, 0.3);
+
+            drive.followTrajectory(M7);
             armadjust(1, 600, 0.5);
+
+            drive.followTrajectory(M8); //흰 픽셀 내려놓기
+            gripper(leftopen,rightopen);
+            customSleep(200);
+            armadjust(1,600,0.45);
             customSleep(200);
 
-            drive.followTrajectory(L2);
-            armadjust(1, 150, 0.5);
-            customSleep(200);
+            drive.followTrajectory(M9);
 
-            drive.followTrajectory(L3);
-
-            drive.followTrajectory(L4);
-
-            drive.followTrajectory(L5);
-            gripper(leftclose, rightclose);
-            customSleep(200);
-            armadjust(1, 400, 0.65);
-
-            drive.followTrajectory(L6);
-            customSleep(200);
-
-            drive.followTrajectory(L7);
-            customSleep(200);
-            drive.followTrajectory(L8);
-            armadjust(1, 600, 0.60);
-            customSleep(200);
-            gripper(leftopen, rightopen);
-            customSleep(200);
-            armadjust(1, 600, 0.55);
-            customSleep(1000);
-
-            drive.followTrajectory(L9);
-            customSleep(200);
-            armadjust(1,0,0.55);
-            customSleep(1000);
+            drive.followTrajectory(M10); // 블루 코너 주차 위치
+            armadjust(1, 0, 0.5);
         }
-        else if (biconPosition == 2) {  //code RedC_trajMn
+        else {  //오른쪽 코드
+
             gripper(leftclose, rightclose);
-            armadjust(1, 100, 0.5);
+            armadjust(1,100,0.5);
 
-            drive.followTrajectory(M1);
-
+            drive.followTrajectory(R1);
             gripper(leftopen, rightclose);
             customSleep(200);
 
-            armadjust(1, 400, 0.65);
-            gripper(leftopen,rightclose);
-
-            drive.followTrajectory(backCenter);
-            customSleep(200);
-            gripper(leftopen,rightopen);
-            customSleep(200);
-            armadjust(1, 600, 0.5);
-            customSleep(200);
-
-            drive.followTrajectory(M2);
-            armadjust(1, 150, 0.5);
-            customSleep(200);
-
-            drive.followTrajectory(M3);
-            customSleep(200);
-
-            gripper(leftclose, rightclose);
-            customSleep(200);
-            armadjust(1, 400, 0.65);
-
-            drive.followTrajectory(M4);
-            customSleep(200);
-
-            drive.followTrajectory(M5);
-            armadjust(1, 600, 0.60);
-            customSleep(500);
-            gripper(leftopen, rightopen);
-            customSleep(500);
-            armadjust(1, 600, 0.55);
-            customSleep(1500);
-
-            drive.followTrajectory(M6);
-            customSleep(200);
-            armadjust(1,0,0.55);
-            customSleep(1000);
-
-        }
-        else {  //code RedC_trajRn
-            gripper(leftclose, rightclose);
-            customSleep(200);
-            armadjust(1, 500, 0.55);
-
-            drive.followTrajectory(R1);
-
-            gripper(leftclose,rightopen);
-            customSleep(200);
+            armadjust(1,400,0.65);
 
             drive.followTrajectory(R2);
-            armadjust(1,0,0.5);
-            customSleep(200);
+            gripper(leftopen, rightopen);
+            armadjust(1,500,0.5);
 
             drive.followTrajectory(R3);
-            gripper(leftopen,rightopen);
-            customSleep(200);
-            armadjust(1,200,0.5);
-            customSleep(200);
-
 
             drive.followTrajectory(R4);
+            armadjust(1,0,0.5);
 
             drive.followTrajectory(R5);
 
             drive.followTrajectory(R6);
-            armadjust(1,0,0.55);
 
             drive.followTrajectory(R7);
-            gripper(leftclose,rightclose);
-            customSleep(200);
+            gripper(leftclose, rightclose);
+            customSleep(400);
+            armadjust(0.5,400,0.3);
 
             drive.followTrajectory(R8);
-            armadjust(1,200,0.55);
 
             drive.followTrajectory(R9);
+            gripper(leftopen, rightopen);
+            customSleep(200);
+            armadjust(1,500,0.45);
+            customSleep(200);
 
             drive.followTrajectory(R10);
-            armadjust(1,600,0.5);
-
             drive.followTrajectory(R11);
-            gripper(leftopen,rightopen);
-            customSleep(500);
-            armadjust(1,600,0.45);
-            customSleep(500);
-
-            drive.followTrajectory(R12);
-            armadjust(1,0,0.65);
-            customSleep(1000);
-
-
-
-
-
-
-
-
-
-
 
 
         }
@@ -451,12 +495,12 @@ public class BlueClose extends LinearOpMode {
             double x = (recognition.getLeft() + recognition.getRight()) / 2;
             double y = (recognition.getTop()  + recognition.getBottom()) / 2;
 
-            if (x > 120 && x < 300) {
-                biconPosition = 2;
-            } else if (x >= 300) {
-                biconPosition = 3;
+            if (x > 150 && x < 370) {
+                biconPosition = 2;  // 가운데
+            } else if (x >= 370) {
+                biconPosition = 3; // 오른쪽
             } else {
-                biconPosition = 1;
+                biconPosition = 1; // 왼쪽
             }
 
 
