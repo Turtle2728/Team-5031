@@ -252,7 +252,7 @@ public class AutonomousTest extends LinearOpMode {
 
         //customSleep(start_delay);  //시작 딜레이
 
-        // Share the CPU.
+        // Share the CPU
         sleep(20);
 
         if (biconPosition == 1) {  //code RedC_trajLn
