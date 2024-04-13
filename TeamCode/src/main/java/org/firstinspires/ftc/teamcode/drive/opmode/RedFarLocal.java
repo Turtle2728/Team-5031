@@ -36,9 +36,9 @@ public class RedFarLocal extends LinearOpMode {
             drive.update();
 
             Pose2d poseEstimate = drive.getPoseEstimate();
-            telemetry.addData("y", -65.3-poseEstimate.getX());
-            telemetry.addData("x", -40+poseEstimate.getY());
-            telemetry.addData("heading", poseEstimate.getHeading());
+            telemetry.addData("y", -65.3+poseEstimate.getX());
+            telemetry.addData("x", -36-poseEstimate.getY());
+            telemetry.addData("heading", 0+Math.toDegrees(poseEstimate.getHeading()));
             telemetry.update();
         }
     }
