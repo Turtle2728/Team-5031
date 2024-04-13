@@ -4,6 +4,7 @@ package org.firstinspires.ftc.teamcode;
 import android.net.wifi.p2p.WifiP2pManager;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -94,9 +95,9 @@ public class RedFar extends LinearOpMode {
 
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
-        drive.setPoseEstimate(new Pose2d(-36, -65.3, Math.toRadians(90)));
+        drive.setPoseEstimate(new Pose2d(-40, -65.3, Math.toRadians(90)));
 
-        Trajectory R1 = drive.trajectoryBuilder(new Pose2d(-36,-65.3,Math.toRadians(90)))
+        Trajectory R1 = drive.trajectoryBuilder(new Pose2d(-40,-65.3,Math.toRadians(90)))
                 .lineToLinearHeading(new Pose2d(-32,-42,Math.toRadians(45)))
                 .build();
 
@@ -105,12 +106,28 @@ public class RedFar extends LinearOpMode {
                                 .build();
 
         Trajectory R21 = drive.trajectoryBuilder(R2.end())
-                        .lineToLinearHeading(new Pose2d(-55,-36,Math.toRadians(170)))
+                        .lineToLinearHeading(new Pose2d(-57,-36,Math.toRadians(180)))
                                 .build();
 
 
         Trajectory R3 = drive.trajectoryBuilder(R21.end())
                         .lineToLinearHeading(new Pose2d(-50,-36,Math.toRadians(180)))
+                                .build();
+
+        Trajectory R4 = drive.trajectoryBuilder(R3.end())
+                        .lineToLinearHeading(new Pose2d(-39,-12,Math.toRadians(0)))
+                                .build();
+
+        Trajectory R5 = drive.trajectoryBuilder(R4.end())
+                    .splineToConstantHeading(new Vector2d(17,-12),Math.toRadians(0))
+                    .addSpatialMarker(new Vector2d(17,-12),() ->{
+                        armadjust(1,600,0.5);
+                    })
+                    .splineToConstantHeading(new Vector2d(54,-38),Math.toRadians(0))
+                    .build();
+
+        Trajectory R6 = drive.trajectoryBuilder(R5.end())
+                        .lineToLinearHeading(new Pose2d(50,-12,Math.toRadians(180)))
                                 .build();
 
 
@@ -179,7 +196,16 @@ public class RedFar extends LinearOpMode {
             gripper(leftclose,rightclose);
             customSleep(100);
 
-            drive.followTrajectory(R3);
+            drive.followTrajectory(R4);
+
+            drive.followTrajectory(R5);
+            gripper(leftopen, rightopen);
+            customSleep(200);
+            armadjust(1,500,0.45);
+            customSleep(200);
+            armadjust(1,700,0.6);
+
+            drive.followTrajectory(R6);
         }
 
 
