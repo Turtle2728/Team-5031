@@ -113,7 +113,7 @@ public class FTC23020 extends LinearOpMode {
                 Shooting.setPosition(0.37);
             }
             if (gamepad1.dpad_up) {
-                ShootingAngle.setPosition(0.75);
+                ShootingAngle.setPosition(0.65);
             }
             if (gamepad1.dpad_down) {
                 ShootingAngle.setPosition(1);
@@ -165,7 +165,7 @@ public class FTC23020 extends LinearOpMode {
                 ARM.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 ARM.setPower(1);
                 currentPosition = ARM.getCurrentPosition();
-                wrist.setPosition(0.5);
+                wrist.setPosition(0.4);
             }
 
             //강제로 팔 내리는 키
