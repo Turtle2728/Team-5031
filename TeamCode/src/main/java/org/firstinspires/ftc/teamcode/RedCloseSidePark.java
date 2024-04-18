@@ -19,8 +19,8 @@ import org.firstinspires.ftc.vision.tfod.TfodProcessor;
 
 import java.util.List;
 
-@Autonomous(name = "RedCloseTest", group = "RedClose", preselectTeleOp = "FTC23020")
-public class AutonomousTest extends LinearOpMode {
+@Autonomous(name = "RedCloseSidePark", group = "RedAuto", preselectTeleOp = "FTC23020")
+public class RedCloseSidePark extends LinearOpMode {
 
 
     int biconPosition = 1;
@@ -100,7 +100,7 @@ public class AutonomousTest extends LinearOpMode {
                 .build();
 
         Trajectory backCenter = drive.trajectoryBuilder(M1.end())//M.b.d
-                .lineToLinearHeading(new Pose2d(51.5, -31, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(50.5, -31, Math.toRadians(0)))
 
                 .build();
 
@@ -128,7 +128,12 @@ public class AutonomousTest extends LinearOpMode {
                 .build();
 
         Trajectory M51 = drive.trajectoryBuilder(M5.end())
-                .lineToLinearHeading(new Pose2d(54, -36, Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(53, -36, Math.toRadians(0)))
+
+                .build();
+
+        Trajectory M52 = drive.trajectoryBuilder(M51.end())
+                .lineToLinearHeading(new Pose2d(42, -36, Math.toRadians(0)))
 
                 .build();
 
@@ -158,7 +163,7 @@ public class AutonomousTest extends LinearOpMode {
                 .build();
 
         Trajectory L4 = drive.trajectoryBuilder(L3.end())
-                .lineToLinearHeading(new Pose2d(-52, -29, Math.toRadians(142))) // 흰색픽셀잡기전
+                .lineToLinearHeading(new Pose2d(-51.5, -30, Math.toRadians(142))) // 흰색픽셀잡기전
                 .build();
 
         Trajectory L5 = drive.trajectoryBuilder(L4.end())
@@ -172,16 +177,16 @@ public class AutonomousTest extends LinearOpMode {
                 .build();
 
         Trajectory L7 = drive.trajectoryBuilder(L6.end())
-                .lineToLinearHeading(new Pose2d(50,-54,Math.toRadians(3)))
+                .lineToLinearHeading(new Pose2d(48,-54,Math.toRadians(3)))
 
                 .build();
 
         Trajectory L8 = drive.trajectoryBuilder(L7.end())
-                .lineToLinearHeading(new Pose2d(54,-36,Math.toRadians(3)))
+                .lineToLinearHeading(new Pose2d(53,-36,Math.toRadians(3)))
 
                 .build();
         Trajectory L9 = drive.trajectoryBuilder(L8.end())
-                .lineToLinearHeading(new Pose2d(51,-55,Math.toRadians(180)))
+                .lineToLinearHeading(new Pose2d(50,-55,Math.toRadians(180)))
 
                 .build();
 
@@ -223,7 +228,7 @@ public class AutonomousTest extends LinearOpMode {
                         .lineToLinearHeading(new Pose2d(15,-58, Math.toRadians(0)))
                                 .build();
         Trajectory R11 = drive.trajectoryBuilder(R10.end())
-                        .lineToLinearHeading(new Pose2d(54,-28,Math.toRadians(0)))
+                        .lineToLinearHeading(new Pose2d(53.2,-28,Math.toRadians(0)))
                                 .build();
         Trajectory R12 = drive.trajectoryBuilder(R11.end())
                         .lineToLinearHeading(new Pose2d(51,-58, Math.toRadians(180)))
@@ -265,7 +270,6 @@ public class AutonomousTest extends LinearOpMode {
             customSleep(200);
 
             armadjust(1, 400, 0.65);
-            gripper(leftopen,rightclose);
 
             drive.followTrajectory(backleft);
             gripper(leftopen,rightopen);
@@ -287,16 +291,16 @@ public class AutonomousTest extends LinearOpMode {
             armadjust(1, 400, 0.3);
 
             drive.followTrajectory(L6);
-            customSleep(200);
 
             drive.followTrajectory(L7);
             armadjust(1, 600, 0.6);
             customSleep(200);
             drive.followTrajectory(L8);
+            armadjust(1, 600, 0.45);
             gripper(leftopen, rightopen);
-            customSleep(200);
+            customSleep(400);
             armadjust(1, 600, 0.4);
-            customSleep(200);
+            customSleep(1000);
 
             drive.followTrajectory(L9);
             customSleep(200);
@@ -317,10 +321,13 @@ public class AutonomousTest extends LinearOpMode {
 
             drive.followTrajectory(backCenter);
             customSleep(200);
+            armadjust(1, 400, 0.5);
+            customSleep(200);
             gripper(leftopen,rightopen);
+            customSleep(600);
+            armadjust(1, 600, 0.4);
             customSleep(200);
-            armadjust(1, 600, 0.5);
-            customSleep(200);
+
 
             drive.followTrajectory(M2);
             armadjust(1, 150, 0.5);
@@ -339,13 +346,15 @@ public class AutonomousTest extends LinearOpMode {
             customSleep(200);
 
             drive.followTrajectory(M5);
-            armadjust(1, 600, 0.60);
+            armadjust(1, 600, 0.55);
 
             drive.followTrajectory(M51);
             gripper(leftopen, rightopen);
             customSleep(500);
-            armadjust(1, 600, 0.55);
+            armadjust(1, 600, 0.4);
             customSleep(1000);
+
+            drive.followTrajectory(M52);
 
             drive.followTrajectory(M6);
             customSleep(200);
@@ -386,7 +395,7 @@ public class AutonomousTest extends LinearOpMode {
             customSleep(200);
 
             drive.followTrajectory(R8);
-            armadjust(1,200,0.3);
+            armadjust(1,400,0.3);
 
             drive.followTrajectory(R9);
 

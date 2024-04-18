@@ -17,12 +17,11 @@ import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.tfod.TfodProcessor;
 
-import java.security.spec.PSSParameterSpec;
 import java.util.List;
 
 
-@Autonomous(name = "BlueFarTest", group = "BlueFar", preselectTeleOp = "FTC23020")
-public class BlueFar extends LinearOpMode {
+@Autonomous(name = "BlueFarStartCenterPark", group = "BlueAuto", preselectTeleOp = "FTC23020")
+public class BlueFarStartCenterPark extends LinearOpMode {
 
     int biconPosition = 1;
     private static final boolean USE_WEBCAM = true;
@@ -114,13 +113,17 @@ public class BlueFar extends LinearOpMode {
         Trajectory L4 = drive.trajectoryBuilder(L3.end())
                 .splineToConstantHeading(new Vector2d(21,12),Math.toRadians(0))
                 .addSpatialMarker(new Vector2d(21,12),() ->{
-                    armadjust(1,600,0.5);
+                    armadjust(1,400,0.5);
                 })
-                .splineToConstantHeading(new Vector2d(52.5,45),Math.toRadians(0))
+                .splineToConstantHeading(new Vector2d(51,47),Math.toRadians(0))
                 .build();
 
         Trajectory L5 = drive.trajectoryBuilder(L4.end())
-                .lineToLinearHeading(new Pose2d(48,63,Math.toRadians(180)))
+                .lineToLinearHeading(new Pose2d(48,14,Math.toRadians(180)))
+                .build();
+
+        Trajectory L6 = drive.trajectoryBuilder(L5.end())
+                .lineToLinearHeading(new Pose2d(55,14,Math.toRadians(180)))
                 .build();
 
         Trajectory M1 = drive.trajectoryBuilder(new Pose2d(-40,65.3,Math.toRadians(270)))
@@ -132,51 +135,62 @@ public class BlueFar extends LinearOpMode {
                         .build();
 
         Trajectory M21 = drive.trajectoryBuilder(M2.end())
-                .lineToLinearHeading(new Pose2d(-60,12,Math.toRadians(270)))
+                .lineToLinearHeading(new Pose2d(-60,14,Math.toRadians(270)))
                 .build();
 
         Trajectory M3 = drive.trajectoryBuilder(M21.end())
-                .lineToLinearHeading(new Pose2d(-37,12,Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(-50,14,Math.toRadians(0)))
                         .build();
 
         Trajectory M4 = drive.trajectoryBuilder(M3.end())
-                .splineToConstantHeading(new Vector2d(21,12),Math.toRadians(0))
-                .addSpatialMarker(new Vector2d(21,12),() ->{
-                    armadjust(1,600,0.5);
+                .splineToConstantHeading(new Vector2d(21,14),Math.toRadians(0))
+                .addSpatialMarker(new Vector2d(21,14),() ->{
+                    armadjust(1,400,0.5);
                 })
-                .splineToConstantHeading(new Vector2d(52.5,38),Math.toRadians(0))
+                .splineToConstantHeading(new Vector2d(51,40),Math.toRadians(0))
                 .build();
 
         Trajectory M41 = drive.trajectoryBuilder(M4.end())
-                .lineToLinearHeading(new Pose2d(48,46,Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(48,40,Math.toRadians(0)))
                 .build();
 
         Trajectory M5 = drive.trajectoryBuilder(M4.end())
-                .lineToLinearHeading(new Pose2d(48,12,Math.toRadians(180)))
+                .lineToLinearHeading(new Pose2d(48,14,Math.toRadians(180)))
+                .build();
+
+        Trajectory M6 = drive.trajectoryBuilder(M5.end())
+                .lineToLinearHeading(new Pose2d(55,14,Math.toRadians(180)))
                 .build();
 
         Trajectory R1 = drive.trajectoryBuilder(new Pose2d(-40,65.3,Math.toRadians(270)))
-                .lineToLinearHeading(new Pose2d(-36,40,Math.toRadians(225)))
+                .lineToLinearHeading(new Pose2d(-38,40,Math.toRadians(225)))
                         .build();
+        Trajectory R11 = drive.trajectoryBuilder(R1.end())
+                .lineToLinearHeading(new Pose2d(-58,40,Math.toRadians(270)))
+                    .build();
 
-        Trajectory R2 = drive.trajectoryBuilder(R1.end())
-                .lineToLinearHeading(new Pose2d(-47,50,Math.toRadians(270)))
+        Trajectory R2 = drive.trajectoryBuilder(R11.end())
+                .lineToLinearHeading(new Pose2d(-58,15,Math.toRadians(270)))
                         .build();
 
         Trajectory R3 = drive.trajectoryBuilder(R2.end())
-                .lineToLinearHeading(new Pose2d(-37,12,Math.toRadians(0)))
+                .lineToLinearHeading(new Pose2d(-37,15,Math.toRadians(2)))
                 .build();
 
         Trajectory R4 = drive.trajectoryBuilder(R3.end())
-                .splineToConstantHeading(new Vector2d(21,12),Math.toRadians(0))
-                .addSpatialMarker(new Vector2d(21,12),() ->{
-                    armadjust(1,600,0.5);
+                .splineToConstantHeading(new Vector2d(21,15),Math.toRadians(2))
+                .addSpatialMarker(new Vector2d(21,15),() ->{
+                    armadjust(1,400,0.5);
                 })
-                .splineToConstantHeading(new Vector2d(52.5,31),Math.toRadians(0))
+                .splineToConstantHeading(new Vector2d(51.5,36),Math.toRadians(2))
                 .build();
 
         Trajectory R5 = drive.trajectoryBuilder(R4.end())
-                .lineToLinearHeading(new Pose2d(48,63,Math.toRadians(180)))
+                .lineToLinearHeading(new Pose2d(48,14,Math.toRadians(180)))
+                .build();
+
+        Trajectory R6 = drive.trajectoryBuilder(R5.end())
+                .lineToLinearHeading(new Pose2d(55,14,Math.toRadians(180)))
                 .build();
 
         //오른쪽
@@ -223,7 +237,7 @@ public class BlueFar extends LinearOpMode {
             customSleep(200);
 
             drive.followTrajectory(L2);
-            armadjust(1,170,0.5);
+            armadjust(1,200,0.45);
             customSleep(200);
 
             drive.followTrajectory(L21);
@@ -244,7 +258,10 @@ public class BlueFar extends LinearOpMode {
             armadjust(1,700,0.6);
 
             drive.followTrajectory(L5);
+
+            drive.followTrajectory(L6);
             armadjust(1,0,0.5);
+
         }
 
         else if (biconPosition == 2) {  //중간코드
@@ -270,15 +287,17 @@ public class BlueFar extends LinearOpMode {
             customSleep(100);
 
             drive.followTrajectory(M4);
-            armadjust(1,500,0.45);
+            armadjust(1,400,0.5);
             customSleep(200);
             gripper(leftopen, rightopen);
-            customSleep(200);
+            customSleep(500);
             armadjust(1,700,0.6);
 
             drive.followTrajectory(M41);
 
             drive.followTrajectory(M5);
+
+            drive.followTrajectory(M6);
             armadjust(1,0,0.5);
         }
         else {  //오른쪽 코드
@@ -292,6 +311,8 @@ public class BlueFar extends LinearOpMode {
             customSleep(100);
             armadjust(1,200,0.5);
             customSleep(100);
+
+            drive.followTrajectory(R11);
 
             drive.followTrajectory(R2);
 
@@ -309,11 +330,9 @@ public class BlueFar extends LinearOpMode {
             armadjust(1,700,0.6);
 
             drive.followTrajectory(R5);
+
+            drive.followTrajectory(R6);
             armadjust(1,0,0.5);
-
-
-
-
         }
 
 

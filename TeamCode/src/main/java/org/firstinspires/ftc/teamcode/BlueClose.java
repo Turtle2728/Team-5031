@@ -21,7 +21,7 @@ import java.security.spec.PSSParameterSpec;
 import java.util.List;
 
 
-@Autonomous(name = "BlueCloseTest", group = "BlueClose", preselectTeleOp = "FTC23020")
+@Autonomous(name = "BlueCloseTest", group = "BlueAuto", preselectTeleOp = "FTC23020")
 public class BlueClose extends LinearOpMode {
 
     int biconPosition = 1;
