@@ -23,7 +23,7 @@ import org.firstinspires.ftc.vision.tfod.TfodProcessor;
 import java.security.spec.PSSParameterSpec;
 import java.util.List;
 
-@Autonomous(name = "RedFarTest", group = "RedFar")
+@Autonomous(name = "RedFarTest", group = "RedFar", preselectTeleOp = "FTC23020")
 public class RedFar extends LinearOpMode {
 
 
@@ -262,10 +262,10 @@ public class RedFar extends LinearOpMode {
 
             drive.followTrajectory(M1);
             armadjust(1,0,0.5);
-            customSleep(100);
+            customSleep(200);
             gripper(leftopen,rightclose);
-            customSleep(100);
-            armadjust(1,170,0.5);
+            customSleep(200);
+            armadjust(1,200,0.5);
 
             drive.followTrajectory(M2);
 

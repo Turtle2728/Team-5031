@@ -19,7 +19,7 @@ import org.firstinspires.ftc.vision.tfod.TfodProcessor;
 
 import java.util.List;
 
-@Autonomous(name = "RedCloseTest", group = "RedClose")
+@Autonomous(name = "RedCloseTest", group = "RedClose", preselectTeleOp = "FTC23020")
 public class AutonomousTest extends LinearOpMode {
 
 
