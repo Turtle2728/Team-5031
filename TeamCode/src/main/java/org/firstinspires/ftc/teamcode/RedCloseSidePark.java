@@ -158,16 +158,16 @@ public class RedCloseSidePark extends LinearOpMode {
                 .build();
 
         Trajectory L3 = drive.trajectoryBuilder(L2.end())
-                .lineToLinearHeading(new Pose2d(-28,-55,Math.toRadians(180)))
+                .lineToLinearHeading(new Pose2d(-48,-55,Math.toRadians(180)))
 
                 .build();
 
         Trajectory L4 = drive.trajectoryBuilder(L3.end())
-                .lineToLinearHeading(new Pose2d(-51.5, -30, Math.toRadians(142))) // 흰색픽셀잡기전
+                .lineToLinearHeading(new Pose2d(-51.5, -28, Math.toRadians(160))) // 흰색픽셀잡기전
                 .build();
 
         Trajectory L5 = drive.trajectoryBuilder(L4.end())
-                .lineToLinearHeading(new Pose2d(-57,-28,Math.toRadians(190))) //흰색 픽셀잡는 곳
+                .lineToLinearHeading(new Pose2d(-56,-30,Math.toRadians(190))) //흰색 픽셀잡는 곳
 
                 .build();
 
@@ -300,7 +300,7 @@ public class RedCloseSidePark extends LinearOpMode {
             gripper(leftopen, rightopen);
             customSleep(400);
             armadjust(1, 600, 0.4);
-            customSleep(1000);
+            customSleep(500);
 
             drive.followTrajectory(L9);
             customSleep(200);
