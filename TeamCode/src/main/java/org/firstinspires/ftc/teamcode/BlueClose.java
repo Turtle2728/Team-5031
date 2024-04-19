@@ -218,7 +218,7 @@ public class BlueClose extends LinearOpMode {
                 .build();
 
         Trajectory R6 = drive.trajectoryBuilder(R5.end())
-                .lineToLinearHeading(new Pose2d(-51,30,Math.toRadians(210))) //흰색픽셀 잡는 위치
+                .lineToLinearHeading(new Pose2d(-52,33,Math.toRadians(210))) //흰색픽셀 잡는 위치
                 .build();
 
         Trajectory R7 = drive.trajectoryBuilder(R6.end())

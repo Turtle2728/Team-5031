@@ -95,7 +95,7 @@ public class RedCloseSidePark extends LinearOpMode {
         drive.setPoseEstimate(new Pose2d(12, -60, Math.toRadians(90)));
 
         Trajectory M1 = drive.trajectoryBuilder(new Pose2d(12, -60, Math.toRadians(90)))//M.b.p
-                .lineToLinearHeading(new Pose2d(12, -32, Math.toRadians(90)))
+                .lineToLinearHeading(new Pose2d(12, -36, Math.toRadians(90)))
 
                 .build();
 
