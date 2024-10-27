@@ -15,7 +15,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 @TeleOp
 
 
-public class FTC23020 extends LinearOpMode {
+public class FTC23020_V2 extends LinearOpMode {
     @Override
 
     public void runOpMode () throws InterruptedException {
@@ -82,7 +82,7 @@ public class FTC23020 extends LinearOpMode {
             double Y = -gamepad1.left_stick_y; // Remember, Y stick value is reversed
             double X = gamepad1.left_stick_x;
             double R = gamepad1.right_stick_x;
-            double slow = 1.5 - (0.7 * gamepad1.right_trigger);
+            double slow = 1.0 - (0.7 * gamepad1.right_trigger);
 
             if (gamepad1.options) {
                 imu.resetYaw();
@@ -143,10 +143,12 @@ public class FTC23020 extends LinearOpMode {
             }
 
             if (gamepad2.a) {
-                targetPosition = 20;
+                targetPosition = 300;
                 ARM.setTargetPosition(targetPosition);
                 ARM.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 ARM.setPower(1);
+                wPOSITION = 0.15;
+                wrist.setPosition(wPOSITION);
                 currentPosition = ARM.getCurrentPosition();
             }
             //리깅단축키
@@ -160,12 +162,12 @@ public class FTC23020 extends LinearOpMode {
             //백스테이지 높은 층 단축키
 
             if (gamepad2.y) {
-                targetPosition = 2480;
+                targetPosition = 2100; // 바스켓에 넣기 위한 팔높이
                 ARM.setTargetPosition(targetPosition);
                 ARM.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 ARM.setPower(1);
                 currentPosition = ARM.getCurrentPosition();
-                wrist.setPosition(0.4);
+                wrist.setPosition(0.65); // 바스켓에 넣기 좋은 각도
             }
 
             //강제로 팔 내리는 키
@@ -187,7 +189,7 @@ public class FTC23020 extends LinearOpMode {
 
             if (gamepad2.options) {
                 ARM.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                currentPosition=0;
+                currentPosition=300;
             }
 
             while (gamepad2.dpad_up) {

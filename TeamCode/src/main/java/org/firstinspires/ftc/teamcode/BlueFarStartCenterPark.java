@@ -225,6 +225,8 @@ public class BlueFarStartCenterPark extends LinearOpMode {
         sleep(20);
 
         if (biconPosition == 1) {  //왼쪽 코드
+            customSleep(7000);
+
             gripper(leftclose, rightclose);
             armadjust(1, 100, 0.5);
 
@@ -265,6 +267,8 @@ public class BlueFarStartCenterPark extends LinearOpMode {
         }
 
         else if (biconPosition == 2) {  //중간코드
+            customSleep(7000);
+
             gripper(leftclose, rightclose);
             armadjust(1, 100, 0.5);
 
@@ -301,6 +305,8 @@ public class BlueFarStartCenterPark extends LinearOpMode {
             armadjust(1,0,0.5);
         }
         else {  //오른쪽 코드
+            customSleep(7000);
+
             gripper(leftclose,rightclose);
             armadjust(1,100,0.5);
 
