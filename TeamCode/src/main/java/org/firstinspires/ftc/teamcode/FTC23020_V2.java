@@ -79,7 +79,7 @@ public class FTC23020_V2 extends LinearOpMode {
             currentGamepad1.copy(gamepad1);
             currentGamepad2.copy(gamepad2);
 
-            double Y = -gamepad1.left_stick_y; // Remember, Y stick value is reversed
+            double Y = -gamepad1.left_stick_y; // Remember,  Y stick value is reversed
             double X = gamepad1.left_stick_x;
             double R = gamepad1.right_stick_x;
             double slow = 1.0 - (0.7 * gamepad1.right_trigger);
